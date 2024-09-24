@@ -20,12 +20,21 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Set the loading state to false after 5 seconds
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+    // Check if the animation has already played (stored in sessionStorage)
+    const hasPlayedAnimation = sessionStorage.getItem('hasPlayedAnimation');
 
-    return () => clearTimeout(timer); // Clean up timer
+    if (!hasPlayedAnimation) {
+      // If it hasn't played, set a timer to hide the animation after 5 seconds
+      const timer = setTimeout(() => {
+        setLoading(false);
+        sessionStorage.setItem('hasPlayedAnimation', 'true'); // Mark the animation as played
+      }, 5000);
+
+      return () => clearTimeout(timer); // Clean up the timer
+    } else {
+      // If the animation has already played, skip directly to the main content
+      setLoading(false);
+    }
   }, []);
 
   if (loading) {
