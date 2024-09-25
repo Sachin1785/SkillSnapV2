@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import MainLayout from './Layout/MainLayout';
-import HomePage from './Pages/HomePage';
-import UserPage from './Pages/UserPage';
-import AllUsers from './Components/AllUsers';
-import StartupAnimation from './Components/StartupAnimation'; // Import your animation component
+import StartupAnimation from './Components/StartupAnimation'; 
+
+const HomePage = lazy(() => import('./Pages/HomePage'));
+const UserPage = lazy(() => import('./Pages/UserPage'));
+const AllUsers = lazy(() => import('./Components/AllUsers'));
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,7 +42,11 @@ function App() {
     return <StartupAnimation />; // Show the animation while loading
   }
 
-  return <RouterProvider router={Router} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RouterProvider router={Router} />
+    </Suspense>
+  );
 }
 
 export default App;

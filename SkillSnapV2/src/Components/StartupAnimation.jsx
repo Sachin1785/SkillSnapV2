@@ -10,7 +10,7 @@ const StartupAnimation = () => {
     let cw = c.width = window.innerWidth;
     let ch = c.height = window.innerHeight;
 
-    const ticks = 150;
+    const ticks = 100; // Reduced number of ticks
     const ring1 = [];
     const ring2 = [];
     const dur = 12;
@@ -74,10 +74,14 @@ const StartupAnimation = () => {
       ring2.forEach(drawPath);
     }
 
+    let resizeTimeout;
     window.onresize = () => {
-      cw = c.width = window.innerWidth;
-      ch = c.height = window.innerHeight;
-      update();
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        cw = c.width = window.innerWidth;
+        ch = c.height = window.innerHeight;
+        update();
+      }, 100); // Debounce resize events
     };
 
     window.onpointerup = () => {
@@ -86,6 +90,12 @@ const StartupAnimation = () => {
         ease: 'power3',
         timeScale: (tl.isActive() ? 0 : 1),
       });
+    };
+
+    return () => {
+      tl.kill();
+      window.onresize = null;
+      window.onpointerup = null;
     };
   }, []);
 
