@@ -1,12 +1,14 @@
+import logo from '../assets/logo.png'
+
 function Nav() {
     return (
         <div className="flex justify-center items-center sticky top-5 mt-0 z-50 bg-gray-800 bg-opacity-60 backdrop-blur-md border border-gray-700 p-4 shadow-lg">
             <div id="top" className="flex items-center space-x-8">
                 <div className="logo">
-                    <img src="" alt="logo goes here" className="h-12" />
+                    <img src={logo} alt="logo goes here" className="h-12 " />
                 </div>
                 <nav className="navbar">
-                    <ul className="nav-links flex space-x-8 text-lg">
+                    <ul className="nav-links flex space-x-8 text-lg items-center ">
                         <li><a href="./" className="text-white hover:text-blue-500">Home</a></li>
                         <li><a href="./user" className="text-white hover:text-blue-500">User Profile Sample</a></li> 
                         <li><a href="./allUsers" className="text-white hover:text-blue-500">See All Users</a></li>

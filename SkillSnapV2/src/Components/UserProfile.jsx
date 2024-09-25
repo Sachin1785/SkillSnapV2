@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './UserProfile.css';  // Assuming you're using a CSS file for custom styles
+import image from "../assets/Screenshot 2024-08-13 190535.png";
 
 const UserProfile = () => {
   const [activeTab, setActiveTab] = useState("about");
@@ -14,7 +15,7 @@ const UserProfile = () => {
       <div className="sidebar">
         <div className="profile-picture">
           <img
-            src="assets/Screenshot 2024-08-13 190535.png"
+            src={image}
             alt="Profile Picture"
           />
         </div>

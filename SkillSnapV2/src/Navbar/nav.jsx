@@ -1,9 +1,11 @@
+import logo from "../assets/logo.png"
+
 function Nav() {
     return (
         <div className="flex justify-end items-center sticky top-0 mt-5 z-50 bg-gray-800 bg-opacity-60 backdrop-blur-md border border-gray-700 p-4 shadow-lg">
-            <div id="top" className="flex items-center space-x-8">
-                <div className="logo">
-                    <img src="" alt="logo goes here" className="h-12" />
+            <div id="top" className="src\assets\logo.png">
+                <div className="">
+                    <img src={logo} alt="logo goes here" className="h-12" />
                 </div>
                 <nav className="navbar">
                     <ul className="nav-links flex space-x-8 text-lg">

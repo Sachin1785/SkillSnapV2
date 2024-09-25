@@ -1,17 +1,21 @@
 import React from 'react';
+import image1 from '../assets/Screenshot 2024-08-13 190535.png';
+import image2 from '../assets/Screenshot 2024-08-13 190535.png';
+import image3 from '../assets/Screenshot 2024-08-13 190535.png';
+import image4 from '../assets/Screenshot 2024-08-13 190535.png';
 
 function AllUsers() {
     const users = [
-        { id: 1, name: 'User Name', image: './assets/Screenshot 2024-08-13 190535.png' },
-        { id: 2, name: 'User Name', image: './assets/Screenshot 2024-08-13 190535.png' },
-        { id: 3, name: 'User Name', image: './assets/Screenshot 2024-08-13 190535.png' },
-        { id: 4, name: 'User Name', image: './assets/Screenshot 2024-08-13 190535.png' }
+        { id: 1, name: 'User Name', image: image1 },
+        { id: 2, name: 'User Name', image: image2 },
+        { id: 3, name: 'User Name', image: image3 },
+        { id: 4, name: 'User Name', image: image4 }
     ];
 
     return (
         <section className="users flex flex-wrap justify-around mt-16">
             {users.map(user => (
-                <a key={user.id} href="./userDetails.html" className="transform transition-transform duration-300 hover:scale-105">
+                <a key={user.id} href="./user" className="transform transition-transform duration-300 hover:scale-105">
                     <div className="user-card border border-blue-500 rounded-lg w-80 h-96 p-4 m-5 flex flex-col bg-gray-800">
                         <div className="user-image flex-2 bg-gray-700 flex justify-center items-center">
                             <img src={user.image} alt="User" className="h-48 w-48 rounded-full" />
