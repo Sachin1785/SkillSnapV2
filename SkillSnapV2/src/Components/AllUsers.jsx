@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import image1 from '../assets/Screenshot 2024-08-13 190535.png';
-import image2 from '../assets/Screenshot 2024-08-13 190535.png';
-import image3 from '../assets/Screenshot 2024-08-13 190535.png';
-import image4 from '../assets/Screenshot 2024-08-13 190535.png';
+import image1 from '../assets/pfp.png';
+import image2 from '../assets/pfp.png';
+import image3 from '../assets/pfp.png';
+import image4 from '../assets/pfp.png';
 
 function AllUsers() {
     const users = [

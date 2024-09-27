@@ -41,7 +41,7 @@ function Nav() {
             <nav className="flex-grow flex justify-center">
                 <ul className="nav-links flex space-x-8 text-lg items-center">
                     <li><Link to="/" className="text-white hover:text-blue-500">Home</Link></li>
-                    <li><Link to="/user/1" className="text-white hover:text-blue-500">User Profile Sample</Link></li> 
+                    <li><Link to="/user/default" className="text-white hover:text-blue-500">User Profile Sample</Link></li> 
                     <li><Link to="/allUsers" className="text-white hover:text-blue-500">See All Users</Link></li>
                     <div className="relative">
                         <input

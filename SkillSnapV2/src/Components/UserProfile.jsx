@@ -11,7 +11,7 @@ const UserProfile = (props) => {
     {
       id: 1,
       name: 'User Name 1',
-      image: 'path/to/image1.jpg',
+      image: '../assets/pfp.png',
       designation: 'Software Engineer',
       email: 'user1@example.com',
       about: 'This is user 1.',
@@ -22,7 +22,7 @@ const UserProfile = (props) => {
     {
       id: 2,
       name: 'User Name 2',
-      image: 'path/to/image2.jpg',
+      image: '../assets/pfp.png',
       designation: 'Data Scientist',
       email: 'user2@example.com',
       about: 'This is user 2.',
@@ -33,19 +33,41 @@ const UserProfile = (props) => {
     {
       id: 3,
       name: 'User Name 3',
-      image: 'path/to/image3.jpg',
+      image: '../assets/pfp.png',
       designation: 'Web Developer',
       email: 'user3@example.com',
       about: 'This is user 3.',
       education: 'B.Tech in Information Technology',
       skills: 'HTML, CSS, JavaScript',
       projects: 'Project X, Project Y'
+    },
+    {
+      id: 4,
+      name: 'User Name 4',
+      image: '../assets/pfp.png',
+      designation: 'UX Designer',
+      email: 'user4@example.com',
+      about: 'This is user 4.',
+      education: 'B.Des. in User Experience Design',
+      skills: 'UI/UX Design, Wireframing, Prototyping',
+      projects: 'Project Alpha, Project Beta'
+    },
+    {
+      id: 'default',
+      name: 'Default User',
+      image: '../assets/pfp.png',
+      designation: 'Software Engineer',
+      email: 'userDefault@example.com',
+      about: 'This is default user.',
+      education: 'B.Sc. in Computer Science',
+      skills: 'JavaScript, React, Node.js',
+      projects: 'Project 1, Project 2'
     }
     // Add more users as needed
   ];
 
   // Find the user based on the ID from the URL
-  const user = users.find(user => user.id === parseInt(id));
+  const user = users.find(user => user.id === id || user.id === parseInt(id));
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
