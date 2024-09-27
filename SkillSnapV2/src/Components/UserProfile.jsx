@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import './UserProfile.css';  // Assuming you're using a CSS file for custom styles
-
+import pfp from '../assets/pfp.png';
 const UserProfile = (props) => {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("about");
@@ -11,7 +11,7 @@ const UserProfile = (props) => {
     {
       id: 1,
       name: 'User Name 1',
-      image: '../assets/pfp.png',
+      image: pfp,
       designation: 'Software Engineer',
       email: 'user1@example.com',
       about: 'This is user 1.',
@@ -22,7 +22,7 @@ const UserProfile = (props) => {
     {
       id: 2,
       name: 'User Name 2',
-      image: '../assets/pfp.png',
+      image: pfp,
       designation: 'Data Scientist',
       email: 'user2@example.com',
       about: 'This is user 2.',
@@ -33,7 +33,7 @@ const UserProfile = (props) => {
     {
       id: 3,
       name: 'User Name 3',
-      image: '../assets/pfp.png',
+      image: pfp,
       designation: 'Web Developer',
       email: 'user3@example.com',
       about: 'This is user 3.',
@@ -44,7 +44,7 @@ const UserProfile = (props) => {
     {
       id: 4,
       name: 'User Name 4',
-      image: '../assets/pfp.png',
+      image: pfp,
       designation: 'UX Designer',
       email: 'user4@example.com',
       about: 'This is user 4.',
@@ -55,7 +55,7 @@ const UserProfile = (props) => {
     {
       id: 'default',
       name: 'Default User',
-      image: '../assets/pfp.png',
+      image: pfp,
       designation: 'Software Engineer',
       email: 'userDefault@example.com',
       about: 'This is default user.',
