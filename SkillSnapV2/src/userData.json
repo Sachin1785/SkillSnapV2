@@ -1,0 +1,35 @@
+[
+    {
+      "id": 1,
+      "name": "User Name 1",
+      "image": "path/to/image1.jpg",
+      "designation": "Software Engineer",
+      "email": "user1@example.com",
+      "about": "This is user 1.",
+      "education": "B.Sc. in Computer Science",
+      "skills": "JavaScript, React, Node.js",
+      "projects": "Project 1, Project 2"
+    },
+    {
+      "id": 2,
+      "name": "User Name 2",
+      "image": "path/to/image2.jpg",
+      "designation": "Data Scientist",
+      "email": "user2@example.com",
+      "about": "This is user 2.",
+      "education": "M.Sc. in Data Science",
+      "skills": "Python, Machine Learning, Data Analysis",
+      "projects": "Project A, Project B"
+    },
+    {
+      "id": 3,
+      "name": "User Name 3",
+      "image": "path/to/image3.jpg",
+      "designation": "Web Developer",
+      "email": "user3@example.com",
+      "about": "This is user 3.",
+      "education": "B.Tech in Information Technology",
+      "skills": "HTML, CSS, JavaScript",
+      "projects": "Project X, Project Y"
+    }
+  ]

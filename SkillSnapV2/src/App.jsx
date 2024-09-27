@@ -1,11 +1,12 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import MainLayout from './Layout/MainLayout';
-import StartupAnimation from './Components/StartupAnimation'; 
+import StartupAnimation from './Components/StartupAnimation';
 
 const HomePage = lazy(() => import('./Pages/HomePage'));
 const UserPage = lazy(() => import('./Pages/UserPage'));
 const AllUsers = lazy(() => import('./Components/AllUsers'));
+const UserProfile = lazy(() => import('./Components/UserProfile'));
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -13,6 +14,7 @@ const Router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="/user" element={<UserPage />} />
       <Route path="/allUsers" element={<AllUsers />} />
+      <Route path="/user/:id" element={<UserProfile />} /> {/* Add this route */}
     </Route>
   )
 );

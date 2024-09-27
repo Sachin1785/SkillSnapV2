@@ -1,13 +1,59 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import './UserProfile.css';  // Assuming you're using a CSS file for custom styles
-import image from "../assets/Screenshot 2024-08-13 190535.png";
 
-const UserProfile = () => {
+const UserProfile = (props) => {
+  const { id } = useParams();
   const [activeTab, setActiveTab] = useState("about");
+
+  // Hardcoded user data for demonstration purposes
+  const users = [
+    {
+      id: 1,
+      name: 'User Name 1',
+      image: 'path/to/image1.jpg',
+      designation: 'Software Engineer',
+      email: 'user1@example.com',
+      about: 'This is user 1.',
+      education: 'B.Sc. in Computer Science',
+      skills: 'JavaScript, React, Node.js',
+      projects: 'Project 1, Project 2'
+    },
+    {
+      id: 2,
+      name: 'User Name 2',
+      image: 'path/to/image2.jpg',
+      designation: 'Data Scientist',
+      email: 'user2@example.com',
+      about: 'This is user 2.',
+      education: 'M.Sc. in Data Science',
+      skills: 'Python, Machine Learning, Data Analysis',
+      projects: 'Project A, Project B'
+    },
+    {
+      id: 3,
+      name: 'User Name 3',
+      image: 'path/to/image3.jpg',
+      designation: 'Web Developer',
+      email: 'user3@example.com',
+      about: 'This is user 3.',
+      education: 'B.Tech in Information Technology',
+      skills: 'HTML, CSS, JavaScript',
+      projects: 'Project X, Project Y'
+    }
+    // Add more users as needed
+  ];
+
+  // Find the user based on the ID from the URL
+  const user = users.find(user => user.id === parseInt(id));
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
   };
+
+  if (!user) {
+    return <div>User not found</div>;
+  }
 
   return (
     <div className="container">
@@ -15,13 +61,13 @@ const UserProfile = () => {
       <div className="sidebar">
         <div className="profile-picture">
           <img
-            src={image}
+            src={user.image}
             alt="Profile Picture"
           />
         </div>
-        <h2 className="name">John Doe</h2>
-        <p className="designation">Software Engineer</p>
-        <p className="accounts">john.doe@example.com</p>
+        <h2 className="name">{user.name}</h2>
+        <p className="designation">{user.designation}</p>
+        <p className="accounts">{user.email}</p>
       </div>
 
       {/* Main Content */}
@@ -59,25 +105,25 @@ const UserProfile = () => {
           {activeTab === "about" && (
             <div className="active">
               <h3>About Me</h3>
-              <p>This is the about me section.</p>
+              <p>{user.about}</p>
             </div>
           )}
           {activeTab === "education" && (
             <div className="active">
               <h3>Education</h3>
-              <p>This is the education section.</p>
+              <p>{user.education}</p>
             </div>
           )}
           {activeTab === "skills" && (
             <div className="active">
               <h3>Skills</h3>
-              <p>This is the skills section.</p>
+              <p>{user.skills}</p>
             </div>
           )}
           {activeTab === "projects" && (
             <div className="active">
               <h3>Projects</h3>
-              <p>This is the projects section.</p>
+              <p>{user.projects}</p>
             </div>
           )}
         </div>

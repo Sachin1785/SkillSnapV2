@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import userProfilePic from '../assets/Screenshot 2024-08-13 190535.png'; // Add your profile picture here
 
@@ -39,9 +40,9 @@ function Nav() {
             {/* Center: Navbar Links and Search */}
             <nav className="flex-grow flex justify-center">
                 <ul className="nav-links flex space-x-8 text-lg items-center">
-                    <li><a href="./" className="text-white hover:text-blue-500">Home</a></li>
-                    <li><a href="./user" className="text-white hover:text-blue-500">User Profile Sample</a></li> 
-                    <li><a href="./allUsers" className="text-white hover:text-blue-500">See All Users</a></li>
+                    <li><Link to="/" className="text-white hover:text-blue-500">Home</Link></li>
+                    <li><Link to="/user/1" className="text-white hover:text-blue-500">User Profile Sample</Link></li> 
+                    <li><Link to="/allUsers" className="text-white hover:text-blue-500">See All Users</Link></li>
                     <div className="relative">
                         <input
                             type="text"
