@@ -1,17 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import logo from '../assets/logo.png';
-import userProfilePic from '../assets/Screenshot 2024-08-13 190535.png'; // Add your profile picture here
 
 function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const menuRef = useRef(null); // To reference the dropdown menu
+    const menuRef = useRef(null);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // Close the menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -19,12 +18,10 @@ function Nav() {
             }
         };
 
-        // Add event listener when menu is open
         if (isMenuOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         }
 
-        // Clean up the event listener
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
@@ -62,23 +59,19 @@ function Nav() {
                 </ul>
             </nav>
 
-            {/* Right: Profile Picture and Dropdown Menu */}
-            <div className="relative flex-shrink-0" ref={menuRef}>
-                <img
-                    src={userProfilePic}
-                    alt="User Profile"
-                    className="h-10 w-10 rounded-full cursor-pointer border-2 border-gray-500"
-                    onClick={toggleMenu}
-                />
-                {isMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
-                        <ul className="text-gray-700">
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Edit Profile</li>
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Settings</li>
-                            <li className="px-4 py-2 hover:bg-gray-200 cursor-pointer">Logout</li>
-                        </ul>
-                    </div>
-                )}
+            {/* Right: User Button and Edit Profile */}
+            <div className="relative flex-shrink-0 flex items-center space-x-4" ref={menuRef}>
+                <SignedOut>
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                    <Link to="/edit-profile">
+                        <button className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
+                            Edit Profile
+                        </button>
+                    </Link>
+                </SignedIn>
             </div>
         </div>
     );
