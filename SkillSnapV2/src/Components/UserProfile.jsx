@@ -1,73 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import './UserProfile.css';  // Assuming you're using a CSS file for custom styles
-import pfp from '../assets/pfp.png';
+import usersData from '../users.json';  // Import the JSON file
+
 const UserProfile = (props) => {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("about");
+  const [userImage, setUserImage] = useState(null);
 
-  // Hardcoded user data for demonstration purposes
-  const users = [
-    {
-      id: 1,
-      name: 'User Name 1',
-      image: pfp,
-      designation: 'Software Engineer',
-      email: 'user1@example.com',
-      about: 'This is user 1.',
-      education: 'B.Sc. in Computer Science',
-      skills: 'JavaScript, React, Node.js',
-      projects: 'Project 1, Project 2'
-    },
-    {
-      id: 2,
-      name: 'User Name 2',
-      image: pfp,
-      designation: 'Data Scientist',
-      email: 'user2@example.com',
-      about: 'This is user 2.',
-      education: 'M.Sc. in Data Science',
-      skills: 'Python, Machine Learning, Data Analysis',
-      projects: 'Project A, Project B'
-    },
-    {
-      id: 3,
-      name: 'User Name 3',
-      image: pfp,
-      designation: 'Web Developer',
-      email: 'user3@example.com',
-      about: 'This is user 3.',
-      education: 'B.Tech in Information Technology',
-      skills: 'HTML, CSS, JavaScript',
-      projects: 'Project X, Project Y'
-    },
-    {
-      id: 4,
-      name: 'User Name 4',
-      image: pfp,
-      designation: 'UX Designer',
-      email: 'user4@example.com',
-      about: 'This is user 4.',
-      education: 'B.Des. in User Experience Design',
-      skills: 'UI/UX Design, Wireframing, Prototyping',
-      projects: 'Project Alpha, Project Beta'
-    },
-    {
-      id: 'default',
-      name: 'Default User',
-      image: pfp,
-      designation: 'Software Engineer',
-      email: 'userDefault@example.com',
-      about: 'This is default user.',
-      education: 'B.Sc. in Computer Science',
-      skills: 'JavaScript, React, Node.js',
-      projects: 'Project 1, Project 2'
-    }
-    // Add more users as needed
-  ];
+  // Parse the JSON data
+  const users = usersData;
 
   // Find the user based on the ID from the URL
   const user = users.find(user => user.id === id || user.id === parseInt(id));
+
+useEffect(() => {
+  if (user) {
+    import(/* @vite-ignore */ `../assets/${user.image}`).then((image) => {
+      setUserImage(image.default);
+    }).catch((err) => {
+      console.error("Error loading image:", err);
+    });
+  }
+}, [user]);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -82,10 +37,7 @@ const UserProfile = (props) => {
       {/* Sidebar */}
       <div className="sidebar">
         <div className="profile-picture">
-          <img
-            src={user.image}
-            alt="Profile Picture"
-          />
+          {userImage && <img src={userImage} alt="Profile Picture" />}
         </div>
         <h2 className="name">{user.name}</h2>
         <p className="designation">{user.designation}</p>

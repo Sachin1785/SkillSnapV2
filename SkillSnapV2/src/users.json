@@ -1,0 +1,68 @@
+[
+    {
+      "id": 1,
+      "name": "User Name 1",
+      "image": "pfp.png",
+      "designation": "Software Engineer",
+      "email": "user1@example.com",
+      "about": "This is user 1.",
+      "education": "B.Sc. in Computer Science",
+      "skills": "JavaScript, React, Node.js",
+      "projects": "Project 1, Project 2"
+    },
+    {
+      "id": 2,
+      "name": "User Name 2",
+      "image": "pfp.png",
+      "designation": "Data Scientist",
+      "email": "user2@example.com",
+      "about": "This is user 2.",
+      "education": "M.Sc. in Data Science",
+      "skills": "Python, Machine Learning, Data Analysis",
+      "projects": "Project A, Project B"
+    },
+    {
+      "id": 3,
+      "name": "User Name 3",
+      "image": "pfp.png",
+      "designation": "Web Developer",
+      "email": "user3@example.com",
+      "about": "This is user 3.",
+      "education": "B.Tech in Information Technology",
+      "skills": "HTML, CSS, JavaScript",
+      "projects": "Project X, Project Y"
+    },
+    {
+      "id": 4,
+      "name": "User Name 4",
+      "image": "pfp.png",
+      "designation": "UX Designer",
+      "email": "user4@example.com",
+      "about": "This is user 4.",
+      "education": "B.Des. in User Experience Design",
+      "skills": "UI/UX Design, Wireframing, Prototyping",
+      "projects": "Project Alpha, Project Beta"
+    },
+    {
+        "id": 5,
+        "name": "User Name 5",
+        "image": "pfp.png",
+        "designation": "UX Designer",
+        "email": "user5@example.com",
+        "about": "This is user 5.",
+        "education": "B.Des. in User Experience Design",
+        "skills": "UI/UX Design, Wireframing, Prototyping",
+        "projects": "Project Alpha, Project Beta"
+      },
+    {
+      "id": "default",
+      "name": "Default User",
+      "image": "pfp.png",
+      "designation": "Software Engineer",
+      "email": "userDefault@example.com",
+      "about": "This is default user.",
+      "education": "B.Sc. in Computer Science",
+      "skills": "JavaScript, React, Node.js",
+      "projects": "Project 1, Project 2"
+    }
+]
