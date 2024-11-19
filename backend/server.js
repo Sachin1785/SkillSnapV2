@@ -14,10 +14,10 @@ const usersFilePath = path.join(__dirname, './users.json');
 // Get all users or search users by query
 app.get('/api/users', (req, res) => {
   const searchQuery = req.query.search;
-  console.log(`Search query received: ${searchQuery}`); // Add logging
+  // console.log(`Search query received: ${searchQuery}`); // Add logging
   fs.readFile(usersFilePath, 'utf8', (err, data) => {
     if (err) {
-      console.error('Failed to read users data:', err); // Add logging
+      // console.error('Failed to read users data:', err); // Add logging
       return res.status(500).json({ error: 'Failed to read users data' });
     }
     let users = JSON.parse(data);
@@ -25,7 +25,7 @@ app.get('/api/users', (req, res) => {
       users = users.filter(user => 
         user.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      console.log(`Filtered users: ${JSON.stringify(users)}`); // Add logging
+      // console.log(`Filtered users: ${JSON.stringify(users)}`); // Add logging
     }
     res.json(users);
   });

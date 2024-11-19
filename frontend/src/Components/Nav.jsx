@@ -118,14 +118,14 @@ function Nav() {
                         </button>
                         {Array.isArray(searchResults) && searchResults.length > 0 && (
                             <ul className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg">
-                                {searchResults.map((user) => (
+                                {searchResults.map((user, index) => (
                                     <li
-                                        key={user.clerkId}
+                                        key={`${user.clerkId}-${index}`} // Combining clerkId and index to ensure uniqueness
                                         className="p-2 hover:bg-gray-200"
-                                        onClick={() => handleUserClick(user.clerkId)} 
+                                        onClick={() => handleUserClick(user.clerkId)}
                                     >
-                                        <Link to={`/user/${user.clerkId}`} className="text-gray-800"> 
-                                            {user.name} 
+                                        <Link to={`/user/${user.clerkId}`} className="text-gray-800">
+                                            {user.name}
                                         </Link>
                                     </li>
                                 ))}

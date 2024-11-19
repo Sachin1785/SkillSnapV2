@@ -12,8 +12,6 @@ function EditProfile() {
         education: '',
         skills: '',
         projects: '',
-        // image: '',
-        // ...other fields...
     });
 
     useEffect(() => {
@@ -25,8 +23,6 @@ function EditProfile() {
                 })
                 .catch((error) => {
                     console.error('Error fetching profile data:', error);
-                    // Handle the case where the user profile doesn't exist
-                    // Optionally, you can redirect the user or inform them
                 });
         }
     }, [user]);
@@ -40,8 +36,8 @@ function EditProfile() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Update the user's profile data
-        axios.put(`http://localhost:5000/api/users/${user.id}`, { ...profileData, image: 'pfp.png' }) // Ensure image is set to 'pfp.png'
+        axios
+            .put(`http://localhost:5000/api/users/${user.id}`, { ...profileData, image: 'pfp.png' })
             .then((response) => {
                 console.log('Profile updated:', response.data);
             })
@@ -51,91 +47,244 @@ function EditProfile() {
     };
 
     return (
-        <form className="p-4 space-y-4" onSubmit={handleSubmit}>
-            <div>
-                <label>Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={profileData.name}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div>
-            <div>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={profileData.email}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div>
-            <div>
-                <label>Designation:</label>
-                <input
-                    type="text"
-                    name="designation"
-                    value={profileData.designation}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div>
-            <div>
-                <label>About:</label>
-                <textarea
-                    name="about"
-                    value={profileData.about}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div>
-            <div>
-                <label>Education:</label>
-                <input
-                    type="text"
-                    name="education"
-                    value={profileData.education}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div>
-            <div>
-                <label>Skills:</label>
-                <input
-                    type="text"
-                    name="skills"
-                    value={profileData.skills}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div>
-            <div>
-                <label>Projects:</label>
-                <input
-                    type="text"
-                    name="projects"
-                    value={profileData.projects}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div>
-            {/* <div>
-                <label>Profile Image URL:</label>
-                <input
-                    type="text"
-                    name="image"
-                    value={profileData.image}
-                    onChange={handleChange}
-                    className="border p-2 w-full text-black"
-                />
-            </div> */}
-            {/* ...add other input fields as needed... */}
-            <button type="submit" className="bg-blue-500 text-white p-2 mt-4">
-                Save
-            </button>
-        </form>
+        <div style={{
+            maxWidth: '800px',
+            margin: '0 auto',
+            padding: '24px',
+            backgroundColor: '#1f2937',
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            color: '#f9fafb',
+            marginTop: '32px',
+        }}>
+            <h2 style={{
+                fontSize: '24px',
+                fontWeight: 'bold',
+                color: '#f9fafb',
+                marginBottom: '24px',
+            }}>Edit Profile</h2>
+
+            <form onSubmit={handleSubmit} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+            }}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="name" style={{
+                        color: '#d1d5db',
+                    }}>Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={profileData.name}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            transition: 'border-color 0.3s',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="email" style={{
+                        color: '#d1d5db',
+                    }}>Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={profileData.email}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            transition: 'border-color 0.3s',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="designation" style={{
+                        color: '#d1d5db',
+                    }}>Designation</label>
+                    <input
+                        type="text"
+                        name="designation"
+                        value={profileData.designation}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            transition: 'border-color 0.3s',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="about" style={{
+                        color: '#d1d5db',
+                    }}>About</label>
+                    <textarea
+                        name="about"
+                        value={profileData.about}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            transition: 'border-color 0.3s',
+                            resize: 'vertical',
+                            minHeight: '120px',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="education" style={{
+                        color: '#d1d5db',
+                    }}>Education</label>
+                    <input
+                        type="text"
+                        name="education"
+                        value={profileData.education}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            transition: 'border-color 0.3s',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="skills" style={{
+                        color: '#d1d5db',
+                    }}>Skills</label>
+                    <input
+                        type="text"
+                        name="skills"
+                        value={profileData.skills}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            transition: 'border-color 0.3s',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="projects" style={{
+                        color: '#d1d5db',
+                    }}>Projects</label>
+                    <input
+                        type="text"
+                        name="projects"
+                        value={profileData.projects}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            transition: 'border-color 0.3s',
+                        }}
+                        onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                        onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    style={{
+                        backgroundColor: '#3b82f6',
+                        color: '#fff',
+                        padding: '12px',
+                        borderRadius: '6px',
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.3s',
+                    }}
+                    onMouseEnter={(e) => e.target.style.backgroundColor = '#2563eb'}
+                    onMouseLeave={(e) => e.target.style.backgroundColor = '#3b82f6'}
+                >
+                    Save Changes
+                </button>
+            </form>
+        </div>
     );
 }
 
