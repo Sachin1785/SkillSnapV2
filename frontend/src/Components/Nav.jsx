@@ -120,12 +120,12 @@ function Nav() {
                             <ul className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg">
                                 {searchResults.map((user) => (
                                     <li
-                                        key={user.clerkId} // Use clerkId instead of id
+                                        key={user.clerkId}
                                         className="p-2 hover:bg-gray-200"
-                                        onClick={() => handleUserClick(user.clerkId)} // Use clerkId instead of id
+                                        onClick={() => handleUserClick(user.clerkId)} 
                                     >
-                                        <Link to={`/user/${user.clerkId}`} className="text-gray-800"> // Use clerkId instead of id
-                                            {user.name} (ID: {user.clerkId}) // Use clerkId instead of id
+                                        <Link to={`/user/${user.clerkId}`} className="text-gray-800"> 
+                                            {user.name} 
                                         </Link>
                                     </li>
                                 ))}

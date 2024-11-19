@@ -41,7 +41,7 @@ const UserProfile = (props) => {
         </div>
         <h2 className="name">{user.name}</h2>
         <p className="designation">{user.designation}</p>
-        <p className="accounts">{user.email}</p>
+        <p className="accounts" style={{fontSize:"clamp(12px, 4vw, 18px"}}>{user.email}</p>
       </div>
 
       {/* Main Content */}

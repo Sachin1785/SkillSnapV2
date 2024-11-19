@@ -12,7 +12,7 @@ function EditProfile() {
         education: '',
         skills: '',
         projects: '',
-        image: '',
+        // image: '',
         // ...other fields...
     });
 
@@ -121,7 +121,7 @@ function EditProfile() {
                     className="border p-2 w-full text-black"
                 />
             </div>
-            <div>
+            {/* <div>
                 <label>Profile Image URL:</label>
                 <input
                     type="text"
@@ -130,7 +130,7 @@ function EditProfile() {
                     onChange={handleChange}
                     className="border p-2 w-full text-black"
                 />
-            </div>
+            </div> */}
             {/* ...add other input fields as needed... */}
             <button type="submit" className="bg-blue-500 text-white p-2 mt-4">
                 Save
