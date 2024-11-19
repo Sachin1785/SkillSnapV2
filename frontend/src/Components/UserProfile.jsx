@@ -76,26 +76,38 @@ const UserProfile = (props) => {
         <div className="tab-content">
           {activeTab === "about" && (
             <div className="active">
-              <h3>About Me</h3>
-              <p>{user.about}</p>
+              {/* <h3>About Me</h3> */}
+              <p style={{ fontSize: "24px" }}>{user.about}</p>
             </div>
           )}
           {activeTab === "education" && (
             <div className="active">
-              <h3>Education</h3>
-              <p>{user.education}</p>
+              {/* <h3>Education</h3> */}
+              <ul style={{ fontSize: "24px" }}>
+                {user.education.split(',').map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
             </div>
           )}
           {activeTab === "skills" && (
             <div className="active">
-              <h3>Skills</h3>
-              <p>{user.skills}</p>
+              {/* <h3>Skills</h3> */}
+              <ul style={{ fontSize: "24px" }}>
+                {user.skills.split(',').map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
             </div>
           )}
           {activeTab === "projects" && (
             <div className="active">
-              <h3>Projects</h3>
-              <p>{user.projects}</p>
+              {/* <h3>Projects</h3> */}
+              <ul style={{ fontSize: "24px" }}>
+                {user.projects.split(',').map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
             </div>
           )}
         </div>
