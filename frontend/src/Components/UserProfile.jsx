@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import './UserProfile.css';  // Assuming you're using a CSS file for custom styles
-import usersData from '../users.json';  // Import the JSON file
+import './UserProfile.css';
 
 const UserProfile = (props) => {
   const { id } = useParams();
   const [activeTab, setActiveTab] = useState("about");
+  const [user, setUser] = useState(null);
   const [userImage, setUserImage] = useState(null);
 
-  // Parse the JSON data
-  const users = usersData;
-
-  // Find the user based on the ID from the URL
-  const user = users.find(user => user.id === id || user.id === parseInt(id));
-
-useEffect(() => {
-  if (user) {
-    import(/* @vite-ignore */ `../assets/${user.image}`).then((image) => {
-      setUserImage(image.default);
-    }).catch((err) => {
-      console.error("Error loading image:", err);
-    });
-  }
-}, [user]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/users/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        setUser(data);
+        import(/* @vite-ignore */ `../assets/${data.image}`).then((image) => {
+          setUserImage(image.default);
+        }).catch((err) => {
+          console.error("Error loading image:", err);
+        });
+      })
+      .catch(error => console.error('Error fetching user data:', error));
+  }, [id]);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
