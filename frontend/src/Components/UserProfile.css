@@ -1,88 +1,159 @@
+/* Define CSS Variables for Dark Zinc Theme */
+:root {
+  --bg-color: #09090b;
+  --sidebar-bg: #18181b;
+  --main-bg: #27272a;
+  --text-color: #fafafa;
+  --text-muted: #a1a1aa;
+  --border-color: #3f3f46;
+  --hover-bg: #3f3f46;
+  --accent-color: #71717a;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
 /* Container layout */
 .container {
-    display: flex;
-    height: calc(85vh - 32px);
-    padding-top: 70px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-bottom: 0px;
-    width: 100%;
-    min-width: 100%;
+  display: flex;
+  height: calc(85vh - 32px);
+  padding: 2rem;
+  width: 100%;
+  min-width: 100%;
+  background-color: var(--bg-color);
+  gap: 1.5rem;
 }
 
 /* Sidebar */
 .sidebar {
-    background-color: #083644;
-    padding: 20px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 15px; 
-    margin-right: 50px;
-    border: 2px solid #2c2c2c;
+  background-color: var(--sidebar-bg);
+  padding: 20px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px; 
+  margin-right: 30px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
 }
 
 .profile-picture img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 3px solid #f06c64;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  transition: border-color 0.2s ease;
+}
+
+.profile-picture img:hover {
+  border-color: var(--accent-color);
 }
 
 .name {
-    margin-top: 20px;
-    font-size: 40px;
+  margin-top: 15px;
+  font-size: 32px;
+  color: var(--text-color);
 }
 
 .designation, .accounts {
-    margin: 5px 0;
-    font-size: 20px;
+  margin: 5px 0;
+  font-size: 18px;
+  color: var(--text-muted);
 }
 
 /* Main Content */
 .main-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #1c1c1c;
-    border-radius: 15px; 
-    border: 2px solid #2c2c2c;
-    width: 100%;
+  flex: 1;
+  padding: 20px;
+  background-color: var(--main-bg);
+  border-radius: 10px; 
+  border: 1px solid var(--border-color);
+  width: 100%;
+  box-shadow: var(--shadow);
 }
 
 /* Tabs */
 .tabs {
-    display: flex;
-    border-bottom: 2px solid #2c2c2c;
-    margin-bottom: 20px;
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 15px;
+  gap: 0.5rem;
 }
 
 .tab-link {
-    background-color: #1c1c1c;
-    color: #fff;
-    border: none;
-    padding: 14px 20px;
-    cursor: pointer;
-    outline: none;
-    transition: background-color 0.3s;
-    border-radius: 15px 15px 0 0;
-    font-size: 24px;
+  background-color: transparent;
+  color: var(--text-muted);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  border-radius: 5px 5px 0 0;
+  font-size: 18px;
 }
 
 .tab-link:hover {
-    background-color: #444;
+  background-color: var(--hover-bg);
+  color: var(--text-color);
 }
 
 .tab-link.active {
-    background-color: #083644;
-    border-bottom: 2px solid #f06c64;
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  border-bottom: 2px solid var(--text-color);
 }
 
 /* Tab Content */
 .tab-content > div {
-    display: none;
+  display: none;
 }
 
 .tab-content > .active {
-    display: block;
+  display: block;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.tab-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.tab-content li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tab-content li:last-child {
+  border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .sidebar {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .main-content {
+    width: 100%;
+  }
+
+  .tab-link {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  .name {
+    font-size: 28px;
+  }
+
+  .designation, .accounts {
+    font-size: 16px;
+  }
 }

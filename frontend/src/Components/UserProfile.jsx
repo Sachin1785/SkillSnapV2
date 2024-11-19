@@ -21,8 +21,7 @@ const UserProfile = (props) => {
         });
       })
       .catch(error => console.error('Error fetching user data:', error));
-}, [id]);
-
+  }, [id]);
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
