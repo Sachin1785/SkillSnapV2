@@ -6,7 +6,7 @@ function AllUsers() {
 
   useEffect(() => {
     fetch('http://localhost:5000/api/users')
-      .then(response => response.json())
+      .then(response => response.json())  
       .then(data => {
         // Filter out the default user
         const filteredUsers = data.filter(user => user.id !== 'default');

@@ -11,30 +11,41 @@ app.use(express.json());
 
 const usersFilePath = path.join(__dirname, './users.json');
 
-// Get all users
+// Get all users or search users by query
 app.get('/api/users', (req, res) => {
+  const searchQuery = req.query.search;
+  console.log(`Search query received: ${searchQuery}`); // Add logging
   fs.readFile(usersFilePath, 'utf8', (err, data) => {
     if (err) {
+      console.error('Failed to read users data:', err); // Add logging
       return res.status(500).json({ error: 'Failed to read users data' });
     }
-    const users = JSON.parse(data);
+    let users = JSON.parse(data);
+    if (searchQuery) {
+      users = users.filter(user => 
+        user.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      console.log(`Filtered users: ${JSON.stringify(users)}`); // Add logging
+    }
     res.json(users);
   });
 });
 
-// Get user by ID
-app.get('/api/users/:id', (req, res) => {
-  const userId = req.params.id;
+app.get('/api/users', (req, res) => {
+  const searchQuery = req.query.search;
   fs.readFile(usersFilePath, 'utf8', (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: 'Failed to read users data' });
-    }
-    const users = JSON.parse(data);
-    const user = users.find(user => user.id === userId || user.id === parseInt(userId));
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    res.json(user);
+      if (err) {
+          console.error('Error reading users file:', err);
+          return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      let users = JSON.parse(data);
+
+      if (searchQuery) {
+          users = users.filter(user => user.id.toString() === searchQuery.toString());
+      }
+
+      res.json(users);
   });
 });
 
