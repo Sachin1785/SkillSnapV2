@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import MainLayout from './Layout/MainLayout';
 import StartupAnimation from './Components/StartupAnimation';
+import EditProfile from './Components/EditProfile';
 
 const HomePage = lazy(() => import('./Pages/HomePage'));
 const UserPage = lazy(() => import('./Pages/UserPage'));
@@ -15,6 +16,7 @@ const Router = createBrowserRouter(
       <Route path="/user" element={<UserPage />} />
       <Route path="/allUsers" element={<AllUsers />} />
       <Route path="/user/:id" element={<UserProfile />} /> {/* Add this route */}
+      <Route path="/edit-profile" element={<EditProfile />} />
     </Route>
   )
 );

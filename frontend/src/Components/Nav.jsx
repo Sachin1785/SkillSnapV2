@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from '@clerk/clerk-react';
 import logo from '../assets/logo.png';
 import axios from 'axios';
 
@@ -10,6 +10,7 @@ function Nav() {
     const [searchResults, setSearchResults] = useState([]);
     const menuRef = useRef(null);
     const searchRef = useRef(null); // Ref for search component
+    const { user } = useUser();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -51,7 +52,24 @@ function Nav() {
         }
     }, [searchQuery]);
 
-    const handleUserClick = (userId) => {
+    useEffect(() => {
+        if (user) {
+            axios
+                .post('http://localhost:5000/api/users', {
+                    clerkId: user.id,
+                    name: user.fullName,
+                    email: user.primaryEmailAddress.emailAddress,
+                })
+                .then((response) => {
+                    console.log('User profile checked/created:', response.data);
+                })
+                .catch((error) => {
+                    console.error('Error creating user profile:', error);
+                });
+        }
+    }, [user]);
+
+    const handleUserClick = (clerkId) => {
         setSearchQuery('');  // Clear search query when user is clicked
         setSearchResults([]); // Clear search results when user is clicked
     };
@@ -102,12 +120,12 @@ function Nav() {
                             <ul className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg">
                                 {searchResults.map((user) => (
                                     <li
-                                        key={user.id}
+                                        key={user.clerkId} // Use clerkId instead of id
                                         className="p-2 hover:bg-gray-200"
-                                        onClick={() => handleUserClick(user.id)} // Handle click event
+                                        onClick={() => handleUserClick(user.clerkId)} // Use clerkId instead of id
                                     >
-                                        <Link to={`/user/${user.id}`} className="text-gray-800">
-                                            {user.name} (ID: {user.id})
+                                        <Link to={`/user/${user.clerkId}`} className="text-gray-800"> // Use clerkId instead of id
+                                            {user.name} (ID: {user.clerkId}) // Use clerkId instead of id
                                         </Link>
                                     </li>
                                 ))}
@@ -125,7 +143,10 @@ function Nav() {
                 <SignedIn>
                     <UserButton />
                     <Link to="/edit-profile">
-                        <button className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">
+                        <button
+                            className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+                            onClick={() => console.log('User Clerk ID:', user.id)}
+                        >
                             Edit Profile
                         </button>
                     </Link>

@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import './UserProfile.css';
 
 const UserProfile = (props) => {
-  const { id } = useParams();
+  const { id } = useParams();  // id from URL params
   const [activeTab, setActiveTab] = useState("about");
   const [user, setUser] = useState(null);
   const [userImage, setUserImage] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/users/${id}`)
+    // Fetch user by ID (id from URL params)
+    fetch(`http://localhost:5000/api/users/${id}`) 
       .then(response => response.json())
       .then(data => {
         setUser(data);
@@ -20,7 +21,8 @@ const UserProfile = (props) => {
         });
       })
       .catch(error => console.error('Error fetching user data:', error));
-  }, [id]);
+}, [id]);
+
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -76,13 +78,11 @@ const UserProfile = (props) => {
         <div className="tab-content">
           {activeTab === "about" && (
             <div className="active">
-              {/* <h3>About Me</h3> */}
               <p style={{ fontSize: "24px" }}>{user.about}</p>
             </div>
           )}
           {activeTab === "education" && (
             <div className="active">
-              {/* <h3>Education</h3> */}
               <ul style={{ fontSize: "24px" }}>
                 {user.education.split(',').map((item, index) => (
                   <li key={index}>{item}</li>
@@ -92,7 +92,6 @@ const UserProfile = (props) => {
           )}
           {activeTab === "skills" && (
             <div className="active">
-              {/* <h3>Skills</h3> */}
               <ul style={{ fontSize: "24px" }}>
                 {user.skills.split(',').map((item, index) => (
                   <li key={index}>{item}</li>
@@ -102,7 +101,6 @@ const UserProfile = (props) => {
           )}
           {activeTab === "projects" && (
             <div className="active">
-              {/* <h3>Projects</h3> */}
               <ul style={{ fontSize: "24px" }}>
                 {user.projects.split(',').map((item, index) => (
                   <li key={index}>{item}</li>
