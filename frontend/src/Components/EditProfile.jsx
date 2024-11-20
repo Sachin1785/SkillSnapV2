@@ -48,17 +48,17 @@ function EditProfile() {
 
     return (
         <div style={{
+            width: '95%',
             maxWidth: '800px',
-            margin: '0 auto',
-            padding: '24px',
+            margin: '32px auto',
+            padding: '16px',
             backgroundColor: '#1f2937',
             borderRadius: '8px',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
             color: '#f9fafb',
-            marginTop: '32px',
         }}>
             <h2 style={{
-                fontSize: '24px',
+                fontSize: 'clamp(20px, 4vw, 24px)',
                 fontWeight: 'bold',
                 color: '#f9fafb',
                 marginBottom: '24px',

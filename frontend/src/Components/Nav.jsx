@@ -11,6 +11,7 @@ function Nav() {
     const menuRef = useRef(null);
     const searchRef = useRef(null); // Ref for search component
     const { user } = useUser();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -75,49 +76,153 @@ function Nav() {
     };
 
     return (
-        <div className="flex justify-between items-center sticky top-5 z-50 bg-gray-800 bg-opacity-60 backdrop-blur-md border border-gray-700 p-4 shadow-lg">
-            {/* Left: Logo */}
-            <div className="logo flex-shrink-0">
-                <img src={logo} alt="logo" className="h-12" />
+        <div className="flex flex-col md:flex-row justify-between items-center sticky top-5 z-50 bg-gray-800 bg-opacity-60 backdrop-blur-md border border-gray-700 p-4 shadow-lg w-full">
+            {/* Left: Logo, Mobile Search, and Mobile Menu Button */}
+            <div className="w-full md:w-auto flex justify-between items-center gap-4">
+                <Link to="/" className="logo flex-shrink-0">
+                    <img src={logo} alt="logo" className="h-8 md:h-12" />
+                </Link>
+                
+                {/* Mobile Search Bar */}
+                <div className="md:hidden relative flex-grow max-w-[200px]" ref={searchRef}>
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        className="w-full px-3 py-1 text-sm rounded-full text-gray-800"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button className="absolute right-0 top-0 mt-1 mr-2">
+                        <svg className="h-4 w-4 fill-current text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M10 2a8 8 0 105.293 14.707l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z" />
+                        </svg>
+                    </button>
+                    {Array.isArray(searchResults) && searchResults.length > 0 && (
+                        <ul
+                            className="absolute bg-white border border-gray-300 mt-1 w-full rounded-lg shadow-lg z-50"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {searchResults.map((user, index) => (
+                                <li
+                                    key={`${user.clerkId}-${index}`} // Combining clerkId and index to ensure uniqueness
+                                    className="p-2 hover:bg-gray-200"
+                                    onClick={() => handleUserClick(user.clerkId)}
+                                >
+                                    <Link to={`/user/${user.clerkId}`} className="text-gray-800">
+                                        {user.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+                
+                {/* Mobile Menu Button */}
+                <button 
+                    className="md:hidden text-white"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
 
-            {/* Center: Navbar Links and Search */}
-            <nav className="flex-grow flex justify-center">
-                <ul className="nav-links flex space-x-8 text-lg items-center">
-                    <li key="home">
-                        <Link to="/" className="text-white hover:text-blue-500">
-                            Home
-                        </Link>
-                    </li>
-                    <li key="user-profile">
-                        <Link to="/user/default" className="text-white hover:text-blue-500">
-                            User Profile Sample
-                        </Link>
-                    </li>
-                    <li key="all-users">
-                        <Link to="/allUsers" className="text-white hover:text-blue-500">
-                            See All Users
-                        </Link>
-                    </li>
-                    <div className="relative" key="search" ref={searchRef}>
+            {/* Modified mobile menu overlay with transitions */}
+            <div 
+                className={`fixed inset-0 bg-gray-800/95 backdrop-blur-sm transition-all duration-300 ease-in-out md:hidden ${
+                    isMobileMenuOpen 
+                        ? 'opacity-100 pointer-events-auto' 
+                        : 'opacity-0 pointer-events-none'
+                }`} 
+                onClick={() => setIsMobileMenuOpen(false)}
+            />
+            <div 
+                className={`fixed top-[85px] left-0 right-0 bg-gray-800 border-t border-gray-700 shadow-lg transition-all duration-300 ease-in-out transform md:hidden ${
+                    isMobileMenuOpen 
+                        ? 'translate-y-0 opacity-100' 
+                        : '-translate-y-full opacity-0'
+                }`} 
+                onClick={e => e.stopPropagation()}
+            >
+                {/* Close button in overlay */}
+                <button 
+                    className="absolute top-4 right-4 text-white hover:text-red-500 transition-colors duration-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                {/* Mobile Navigation Content - reduced spacing */}
+                <nav className="flex flex-col items-center space-y-3 p-2 pt-4">
+                    <ul className="nav-links flex flex-col items-center space-y-2 text-base w-full">
+                        <li className="w-full text-center">
+                            <Link to="/" className="text-white hover:text-blue-500 block py-1" onClick={() => setIsMobileMenuOpen(false)}>
+                                Home
+                            </Link>
+                        </li>
+                        <li className="w-full text-center">
+                            <Link to="/user/default" className="text-white hover:text-blue-500 block py-1" onClick={() => setIsMobileMenuOpen(false)}>
+                                User Profile Sample
+                            </Link>
+                        </li>
+                        <li className="w-full text-center">
+                            <Link to="/allUsers" className="text-white hover:text-blue-500 block py-1" onClick={() => setIsMobileMenuOpen(false)}>
+                                See All Users
+                            </Link>
+                        </li>
+                    </ul>
+                    
+                    <div className="flex flex-col items-center space-y-2 w-full pt-2 border-t border-gray-700">
+                        <SignedOut>
+                            <SignInButton />
+                        </SignedOut>
+                        <SignedIn>
+                            <div className="flex items-center justify-center gap-4 w-full">
+                                <UserButton />
+                                <Link to="/edit-profile" onClick={() => setIsMobileMenuOpen(false)}>
+                                    <button
+                                        className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-1 rounded text-sm"
+                                        onClick={() => console.log('User Clerk ID:', user.id)}
+                                    >
+                                        Edit Profile
+                                    </button>
+                                </Link>
+                            </div>
+                        </SignedIn>
+                    </div>
+                </nav>
+            </div>
+
+            {/* Center: Navbar Links and Desktop Search */}
+            <nav className="hidden md:flex flex-grow justify-center">
+                <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
+                    <ul className="nav-links flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-lg">
+                        <li><Link to="/" className="text-white hover:text-blue-500 block">Home</Link></li>
+                        <li><Link to="/user/default" className="text-white hover:text-blue-500 block">User Profile Sample</Link></li>
+                        <li><Link to="/allUsers" className="text-white hover:text-blue-500 block">See All Users</Link></li>
+                    </ul>
+                    
+                    {/* Desktop Search Bar */}
+                    <div className="hidden md:block relative w-64" ref={searchRef}>
                         <input
                             type="text"
                             placeholder="Search by ID..."
-                            className="px-4 py-2 rounded-full text-gray-800"
+                            className="w-full px-4 py-2 rounded-full text-gray-800"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                         <button className="absolute right-0 top-0 mt-2 mr-4">
-                            <svg
-                                className="h-4 w-4 fill-current text-gray-800"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                            >
+                            <svg className="h-4 w-4 fill-current text-gray-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path d="M10 2a8 8 0 105.293 14.707l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z" />
                             </svg>
                         </button>
                         {Array.isArray(searchResults) && searchResults.length > 0 && (
-                            <ul className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg">
+                            <ul
+                                className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg z-50"
+                                onClick={(e) => e.stopPropagation()}
+                            >
                                 {searchResults.map((user, index) => (
                                     <li
                                         key={`${user.clerkId}-${index}`} // Combining clerkId and index to ensure uniqueness
@@ -132,11 +237,11 @@ function Nav() {
                             </ul>
                         )}
                     </div>
-                </ul>
+                </div>
             </nav>
 
             {/* Right: User Button and Edit Profile */}
-            <div className="relative flex-shrink-0 flex items-center space-x-4" ref={menuRef}>
+            <div className="hidden md:flex relative flex-shrink-0 items-center space-x-4" ref={menuRef}>
                 <SignedOut>
                     <SignInButton />
                 </SignedOut>
@@ -144,7 +249,7 @@ function Nav() {
                     <UserButton />
                     <Link to="/edit-profile">
                         <button
-                            className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded"
+                            className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded whitespace-nowrap"
                             onClick={() => console.log('User Clerk ID:', user.id)}
                         >
                             Edit Profile

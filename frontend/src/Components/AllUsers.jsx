@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { CardBody, CardContainer, CardItem } from './ui/3d-card';
 
 function AllUsers() {
   const [users, setUsers] = useState([]);
@@ -22,27 +23,53 @@ function AllUsers() {
   }, []);
 
   return (
-    <div style={{display:'flex', justifyContent:'center'}}>
-      <section className="users grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-16 ">
-        {users.map((user, index) => (
-          <Link key={user.id} to={`/user/${user.id}`} className="transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl ml-8 mr-8">
-            <div className="user-card border border-blue-500 rounded-xl w-80 h-96 p-4 m-5 flex flex-col bg-gray-800 hover:bg-gray-700 transition-colors shadow-lg hover:shadow-xl">
-              <div className="user-image flex-2 bg-gray-700 flex justify-center items-center rounded-t-lg overflow-hidden">
-                <img src={user.image} alt={user.name} className="h-48 w-48 object-cover rounded-full transition-transform duration-500 hover:scale-110" />
-              </div>
-              <div className="user-details flex-1 p-4 flex flex-col justify-center items-center text-center">
-                <h2 className="text-2xl font-semibold mb-2 text-white">{user.name}</h2>
-                <p className="text-sm text-gray-400">{user.designation}</p>
-              </div>
-              <div className="user-footer flex items-center justify-center mt-4">
-                <button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 text-white py-2 px-4 rounded-full transition-all">
-                  Unlock My World
-                </button>
-              </div>
-            </div>
+    <div className="container mx-auto px-2 py-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {users.map((user) => (
+          <Link key={user.id} to={`/user/${user.id}`}>
+            <CardContainer className="w-full">
+              <CardBody className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 relative group/card border border-gray-700/50 w-72 h-96 rounded-xl p-6 shadow-lg shadow-gray-900/20">
+                <CardItem
+                  translateZ="100"
+                  className="w-full flex justify-center items-center mb-4"
+                >
+                  <div className="w-48 h-48 rounded-full overflow-hidden ring-2 ring-purple-500/50 ring-offset-2 ring-offset-gray-800">
+                    <img
+                      src={user.image}
+                      alt={user.name}
+                      className="h-full w-full object-cover transform transition-transform group-hover/card:scale-110"
+                    />
+                  </div>
+                </CardItem>
+                
+                <CardItem
+                  translateZ="50"
+                  className="text-2xl font-bold text-center text-white mb-2"
+                >
+                  {user.name}
+                </CardItem>
+                
+                <CardItem
+                  as="p"
+                  translateZ="60"
+                  className="text-gray-400 text-center text-sm"
+                >
+                  {user.designation}
+                </CardItem>
+
+                <CardItem
+                  translateZ="30"
+                  className="mt-4 w-full"
+                >
+                  <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-purple-600 hover:to-blue-600 text-white py-2 px-4 rounded-full transition-all text-sm font-medium">
+                    Unlock My World
+                  </button>
+                </CardItem>
+              </CardBody>
+            </CardContainer>
           </Link>
         ))}
-      </section>
+      </div>
     </div>
   );
 }
