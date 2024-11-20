@@ -15,7 +15,7 @@ const Router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="/user" element={<UserPage />} />
       <Route path="/allUsers" element={<AllUsers />} />
-      <Route path="/user/:id" element={<UserProfile />} /> {/* Add this route */}
+      <Route path="/user/:id" element={<UserProfile />} /> 
       <Route path="/edit-profile" element={<EditProfile />} />
     </Route>
   )

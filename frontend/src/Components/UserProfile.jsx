@@ -36,12 +36,14 @@ const UserProfile = (props) => {
     <div className="container">
       {/* Sidebar */}
       <div className="sidebar">
-        <div className="profile-picture">
+        <div className="profile-image-section">
           {userImage && <img src={userImage} alt="Profile Picture" />}
         </div>
-        <h2 className="name">{user.name}</h2>
-        <p className="designation">{user.designation}</p>
-        <p className="accounts" style={{fontSize:"clamp(12px, 4vw, 18px"}}>{user.email}</p>
+        <div className="profile-details-section">
+          <h2 className="name">{user.name}</h2>
+          <p className="designation">{user.designation}</p>
+          <p className="accounts" style={{fontSize:"clamp(12px, 4vw, 18px"}}>{user.email}</p>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -85,7 +87,10 @@ const UserProfile = (props) => {
             <div className="active">
               <ul style={{ fontSize: "24px" }}>
                 {user.education.split(',').map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <React.Fragment key={index}>
+                    <li>{item}</li>
+                    <hr style={{borderTop: "1px solid #333"}}/>
+                  </React.Fragment>
                 ))}
               </ul>
             </div>
@@ -94,7 +99,10 @@ const UserProfile = (props) => {
             <div className="active">
               <ul style={{ fontSize: "24px" }}>
                 {user.skills.split(',').map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <React.Fragment key={index}>
+                    <li>{item}</li>
+                    <hr style={{borderTop: "1px solid #333"}}/>
+                  </React.Fragment>
                 ))}
               </ul>
             </div>
@@ -103,7 +111,10 @@ const UserProfile = (props) => {
             <div className="active">
               <ul style={{ fontSize: "24px" }}>
                 {user.projects.split(',').map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <React.Fragment key={index}>
+                    <li>{item}</li>
+                    <hr style={{borderTop: "1px solid #333"}}/>
+                  </React.Fragment>
                 ))}
               </ul>
             </div>

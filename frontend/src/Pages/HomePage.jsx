@@ -1,9 +1,9 @@
 import React from "react";
-import Home from "@/components/Home.jsx"; // Ensure the path is correct
+import Home from "@/components/Home.jsx";
 
 const HomePage = () => {
   return (
-    <div>
+    <div className="min-h-screen w-full">
       <Home />
     </div>
   );
