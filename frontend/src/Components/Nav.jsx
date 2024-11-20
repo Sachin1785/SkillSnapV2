@@ -70,7 +70,7 @@ function Nav() {
         }
     }, [user]);
 
-    const handleUserClick = (clerkId) => {
+    const handleUserClick = () => {
         setSearchQuery('');  // Clear search query when user is clicked
         setSearchResults([]); // Clear search results when user is clicked
     };
@@ -103,12 +103,12 @@ function Nav() {
                             onClick={(e) => e.stopPropagation()}
                         >
                             {searchResults.map((user, index) => (
-                                <li
-                                    key={`${user.clerkId}-${index}`} // Combining clerkId and index to ensure uniqueness
-                                    className="p-2 hover:bg-gray-200"
-                                    onClick={() => handleUserClick(user.clerkId)}
-                                >
-                                    <Link to={`/user/${user.clerkId}`} className="text-gray-800">
+                                <li key={`${user.clerkId}-${index}`}>
+                                    <Link
+                                        to={`/user/${user.clerkId}`}
+                                        className="block p-2 hover:bg-gray-200 text-gray-800"
+                                        onClick={() => handleUserClick(user.clerkId)}
+                                    >
                                         {user.name}
                                     </Link>
                                 </li>
@@ -224,12 +224,12 @@ function Nav() {
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 {searchResults.map((user, index) => (
-                                    <li
-                                        key={`${user.clerkId}-${index}`} // Combining clerkId and index to ensure uniqueness
-                                        className="p-2 hover:bg-gray-200"
-                                        onClick={() => handleUserClick(user.clerkId)}
-                                    >
-                                        <Link to={`/user/${user.clerkId}`} className="text-gray-800">
+                                    <li key={`${user.clerkId}-${index}`}>
+                                        <Link
+                                            to={`/user/${user.clerkId}`}
+                                            className="block p-2 hover:bg-gray-200 text-gray-800"
+                                            onClick={() => handleUserClick(user.clerkId)}
+                                        >
                                             {user.name}
                                         </Link>
                                     </li>
