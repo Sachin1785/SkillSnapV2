@@ -12,9 +12,10 @@ function EditProfile() {
         education: '',
         skills: '',
         projects: '',
+        instagram: '',
+        linkedin: '',
+        github: '',
     });
-
-
 
     useEffect(() => {
         if (user) {
@@ -266,6 +267,66 @@ function EditProfile() {
                         }}
                         onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
                         onBlur={(e) => e.target.style.borderColor = '#4b5563'}
+                    />
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                }}>
+                    <label htmlFor="social" style={{
+                        color: '#d1d5db',
+                    }}>Social Media Links</label>
+                    <input
+                        type="url"
+                        name="instagram"
+                        placeholder="Instagram URL"
+                        value={profileData.instagram}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            marginBottom: '8px',
+                        }}
+                    />
+                    <input
+                        type="url"
+                        name="linkedin"
+                        placeholder="LinkedIn URL"
+                        value={profileData.linkedin}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                            marginBottom: '8px',
+                        }}
+                    />
+                    <input
+                        type="url"
+                        name="github"
+                        placeholder="GitHub URL"
+                        value={profileData.github}
+                        onChange={handleChange}
+                        style={{
+                            padding: '12px',
+                            borderRadius: '6px',
+                            border: '1px solid #4b5563',
+                            backgroundColor: '#374151',
+                            color: '#f9fafb',
+                            fontSize: '16px',
+                            outline: 'none',
+                        }}
                     />
                 </div>
 
