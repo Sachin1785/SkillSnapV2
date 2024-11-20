@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from '@clerk/clerk-react';
 import logo from '../assets/logo.png';
+import logoPhone from '../assets/logoPhone.png';
 import axios from 'axios';
 
 function Nav() {
@@ -19,23 +20,25 @@ function Nav() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsMenuOpen(false);
-            }
-
-            // Collapse search results if clicked outside
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
-                setSearchResults([]); // Clear search results
-                setSearchQuery(''); // Clear search query
+            // Only clear search if the click is outside both menu and search results
+            if (
+                searchRef.current &&
+                !searchRef.current.contains(event.target) &&
+                !event.target.closest('.search-result')
+            ) {
+                setSearchQuery('');
+                setSearchResults([]);
             }
         };
-
+    
         document.addEventListener('mousedown', handleClickOutside);
-
+    
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+    
+    
 
     useEffect(() => {
         if (searchQuery) {
@@ -80,7 +83,8 @@ function Nav() {
             {/* Left: Logo, Mobile Search, and Mobile Menu Button */}
             <div className="w-full md:w-auto flex justify-between items-center gap-4">
                 <Link to="/" className="logo flex-shrink-0">
-                    <img src={logo} alt="logo" className="h-8 md:h-12" />
+                    <img src={logo} alt="logo" className="hidden md:block h-12" />
+                    <img src={logoPhone} alt="logo" className="block md:hidden h-8" />
                 </Link>
                 
                 {/* Mobile Search Bar */}
@@ -103,15 +107,15 @@ function Nav() {
                             onClick={(e) => e.stopPropagation()}
                         >
                             {searchResults.map((user, index) => (
-                                <li key={`${user.clerkId}-${index}`}>
-                                    <Link
-                                        to={`/user/${user.clerkId}`}
-                                        className="block p-2 hover:bg-gray-200 text-gray-800"
-                                        onClick={() => handleUserClick(user.clerkId)}
-                                    >
-                                        {user.name}
-                                    </Link>
-                                </li>
+                                <li key={`${user.clerkId}-${index}`} className="search-result">
+                                <Link
+                                    to={`/user/${user.clerkId}`}
+                                    className="block p-2 hover:bg-gray-200 text-gray-800"
+                                    onClick={() => handleUserClick(user.clerkId)}
+                                >
+                                    {user.name}
+                                </Link>
+                            </li>
                             ))}
                         </ul>
                     )}
