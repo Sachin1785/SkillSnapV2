@@ -14,8 +14,11 @@ function EditProfile() {
         projects: '',
     });
 
+
+
     useEffect(() => {
         if (user) {
+            console.log()
             axios
                 .get(`http://localhost:5000/api/users/${user.id}`)
                 .then((response) => {
