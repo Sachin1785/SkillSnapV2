@@ -1,23 +1,130 @@
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const connectDB = require('./db');
-const userRoutes = require('./routes/UserRoutes'); // Import the routes
+const mongoose = require('mongoose');
+const User = require('./models/User');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB();
-
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use('/api/users', userRoutes); // Use the user routes
+// MongoDB Atlas connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('Connected to MongoDB Atlas'))
+.catch(err => console.error('MongoDB connection error:', err));
 
-// Start server
+// Get all users or search users by query
+app.get('/api/users', async (req, res) => {
+  try {
+    const searchQuery = req.query.search;
+    let query = {};
+    
+    if (searchQuery) {
+      query.name = new RegExp(searchQuery, 'i');
+    }
+    
+    const users = await User.find(query);
+    res.json(users);
+  } catch (err) {
+    console.error('Failed to fetch users:', err);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+});
+
+// Get user profile by ID or Clerk ID
+app.get('/api/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    let user = null;
+
+    // Try to find by different ID types
+    user = await User.findOne({
+      $or: [
+        { clerkId: id },
+        { id: id },
+        { _id: mongoose.Types.ObjectId.isValid(id) ? id : null }
+      ]
+    });
+    
+    if (user) {
+      res.json(user);
+    } else {
+      const defaultUser = {
+        id: id,
+        name: "Default User",
+        image: "pfp.png",
+        designation: "",
+        email: "",
+        about: "",
+        education: "",
+        skills: "",
+        projects: ""
+      };
+      res.json(defaultUser);
+    }
+  } catch (err) {
+    console.error('Failed to fetch user:', err);
+    res.status(500).json({ error: 'Failed to fetch user' });
+  }
+});
+
+// Route to get or create a user by ID or Clerk ID
+app.post('/api/users', async (req, res) => {
+  try {
+    const { clerkId, name, email } = req.body;
+    
+    let user = await User.findOne({ clerkId });
+    
+    if (!user) {
+      user = await User.create({
+        clerkId,
+        name,
+        email,
+        image: 'pfp.png'
+      });
+    }
+    
+    res.json(user);
+  } catch (err) {
+    console.error('Failed to create/fetch user:', err);
+    res.status(500).json({ error: 'Failed to create/fetch user' });
+  }
+});
+
+// Route to update user profile by ID or Clerk ID
+app.put('/api/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedData = { ...req.body, image: 'pfp.png' };
+    
+    const user = await User.findOneAndUpdate(
+      {
+        $or: [
+          { clerkId: id },
+          { id: id },
+          { _id: mongoose.Types.ObjectId.isValid(id) ? id : null }
+        ]
+      },
+      updatedData,
+      { new: true }
+    );
+    
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (err) {
+    console.error('Failed to update user:', err);
+    res.status(500).json({ error: 'Failed to update user' });
+  }
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

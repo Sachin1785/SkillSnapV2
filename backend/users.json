@@ -93,5 +93,17 @@
     "skills": "react, wasd,wjasd",
     "projects": "wasd, wasjdhj",
     "image": "pfp.png"
+  },
+  {
+    "id": "default111",
+    "clerkId": "user_2o6Yhg9pR4ZkVYvw2AUqLxElDE5",
+    "name": "Sachin Mahapatro",
+    "email": "sachhidanandamahapatro@gmail.com",
+    "designation": "",
+    "about": "",
+    "education": "",
+    "skills": "",
+    "projects": "",
+    "image": "pfp.png"
   }
 ]

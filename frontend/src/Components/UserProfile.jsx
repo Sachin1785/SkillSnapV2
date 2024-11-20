@@ -14,13 +14,37 @@ const UserProfile = (props) => {
       .then(response => response.json())
       .then(data => {
         setUser(data);
-        import(/* @vite-ignore */ `../assets/${data.image}`).then((image) => {
-          setUserImage(image.default);
-        }).catch((err) => {
-          console.error("Error loading image:", err);
-        });
+        // Only try to load image if data.image exists
+        if (data && data.image) {
+          try {
+            import(/* @vite-ignore */ `../assets/${data.image}`)
+              .then((image) => {
+                setUserImage(image.default);
+              })
+              .catch((err) => {
+                console.error("Error loading image:", err);
+                // Set a default image when import fails
+                import(/* @vite-ignore */ '../assets/pfp.png')
+                  .then((image) => setUserImage(image.default));
+              });
+          } catch (err) {
+            console.error("Error in image import:", err);
+          }
+        }
       })
-      .catch(error => console.error('Error fetching user data:', error));
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+        setUser({
+          name: "User Not Found",
+          image: "pfp.png",
+          designation: "",
+          email: "",
+          about: "",
+          education: "",
+          skills: "",
+          projects: ""
+        });
+      });
 }, [id]);
 
 
