@@ -64,20 +64,12 @@ const UserProfile = (props) => {
           {userImage && <img src={userImage} alt="Profile Picture" />}
         </div>
         <div className="profile-details-section">
-          <h2 className="name" style={{ marginBottom: '16px' }}>{user.name}</h2>
-          <p className="designation" style={{ marginBottom: '16px' }}>{user.designation}</p>
-          <p className="accounts" style={{
-            fontSize: "clamp(12px, 4vw, 18px)",
-            marginBottom: '24px'
-          }}>{user.email}</p>
+          <h2 className="name">{user.name}</h2>
+          <p className="designation">{user.designation}</p>
+          <p className="accounts" style={{ fontSize: "clamp(12px, 4vw, 18px)" }}>{user.email}</p>
           
           {/* Social Media Links */}
-          <div style={{ 
-            display: 'flex', 
-            gap: '20px', 
-            justifyContent: 'center', 
-            marginTop: '24px' 
-          }}>
+          <div className="social-media-links">
             {user.instagram && (
               <a href={user.instagram} target="_blank" rel="noopener noreferrer" style={{ color: '#E4405F' }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
