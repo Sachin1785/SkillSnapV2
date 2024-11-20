@@ -2,9 +2,10 @@
 .container {
     display: flex;
     flex-direction: column;
-    min-height: 85vh;
+    min-height: 90vh;
     padding: 20px;
     min-width: 100%;
+    margin-top: 40px; /* Add space from top */
 
     @media (min-width: 768px) {
         flex-direction: row;
@@ -14,17 +15,22 @@
 
 /* Sidebar */
 .sidebar {
-    background-color: #083644;
+    background-color: rgba(8, 54, 68, 0.6);
     padding: 20px;
     width: 100%;
     max-width: 300px;
     margin: 0 auto 20px;
     border-radius: 15px;
-    border: 2px solid #2c2c2c;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: none;
     /* justify-content: center; */
     align-items: center;
     display: flex;
     flex-direction: column;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transform: translateZ(0);
+    will-change: transform;
 
     @media (max-width: 767px) {
         flex-direction: row;
@@ -72,10 +78,15 @@
 .main-content {
     flex: 1;
     padding: 20px;
-    background-color: #1c1c1c;
+    background-color: rgba(28, 28, 28, 0.6);
     border-radius: 15px; 
-    border: 2px solid #2c2c2c;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: none;
     width: 100%;
+    /* backdrop-filter: blur(8px); */
+    /* -webkit-backdrop-filter: blur(8px); */
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 /* Tabs */
@@ -88,12 +99,10 @@
 }
 
 .tab-link {
-    background-color: #1c1c1c;
+    background-color: rgba(28, 28, 28, 0.6);
     color: #fff;
     border: none;
     padding: 14px 0;  /* Remove horizontal padding for mobile */
-    cursor: pointer;
-    outline: none;
     transition: background-color 0.3s;
     border-radius: 15px 15px 0 0;
     font-size: clamp(16px, 3vw, 24px);
@@ -121,6 +130,7 @@
 
 .tab-content > .active {
     display: block;
+    background-color: rgba(28, 28, 28, 0.4);
 }
 
 .profile-image-section img {

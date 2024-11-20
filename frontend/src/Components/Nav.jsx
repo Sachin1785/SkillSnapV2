@@ -79,7 +79,7 @@ function Nav() {
     };
 
     return (
-        <div className="flex flex-col md:flex-row justify-between items-center sticky top-5 z-50 bg-gray-800 bg-opacity-60 backdrop-blur-md border border-gray-700 p-4 shadow-lg w-full">
+        <div className="flex flex-col md:flex-row justify-between items-center sticky mt-[10px] z-50 bg-gray-800 bg-opacity-60 backdrop-blur-md border border-gray-700 p-4 shadow-lg w-full">
             {/* Left: Logo, Mobile Search, and Mobile Menu Button */}
             <div className="w-full md:w-auto flex justify-between items-center gap-4">
                 <Link to="/" className="logo flex-shrink-0">
@@ -142,7 +142,7 @@ function Nav() {
                 onClick={() => setIsMobileMenuOpen(false)}
             />
             <div 
-                className={`fixed top-[85px] left-0 right-0 bg-gray-800 border-t border-gray-700 shadow-lg transition-all duration-300 ease-in-out transform md:hidden ${
+                className={`fixed top-[95px] left-0 right-0 bg-gray-800 border-t border-gray-700 shadow-lg transition-all duration-300 ease-in-out transform md:hidden ${
                     isMobileMenuOpen 
                         ? 'translate-y-0 opacity-100' 
                         : '-translate-y-full opacity-0'
