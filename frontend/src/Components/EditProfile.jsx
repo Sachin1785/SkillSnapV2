@@ -22,7 +22,7 @@ function EditProfile() {
         if (user) {
             console.log()
             axios
-                .get(`http://localhost:5000/api/users/${user.id}`)
+                .get(`${import.meta.env.VITE_API_URL}/${user.id}`)
                 .then((response) => {
                     setProfileData(response.data);
                 })
@@ -42,7 +42,7 @@ function EditProfile() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .put(`http://localhost:5000/api/users/${user.id}`, { ...profileData, image: 'pfp.png' })
+            .put(`${import.meta.env.VITE_API_URL}/${user.id}`, { ...profileData, image: 'pfp.png' })
             .then((response) => {
                 console.log('Profile updated:', response.data);
             })

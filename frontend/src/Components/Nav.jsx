@@ -43,7 +43,7 @@ function Nav() {
     useEffect(() => {
         if (searchQuery) {
             axios
-                .get(`http://localhost:5000/api/users?search=${searchQuery}`)
+                .get(`${import.meta.env.VITE_API_URL}?search=${searchQuery}`)
                 .then((response) => {
                     setSearchResults(response.data);
                 })
@@ -59,7 +59,7 @@ function Nav() {
     useEffect(() => {
         if (user) {
             axios
-                .post('http://localhost:5000/api/users', {
+                .post(import.meta.env.VITE_API_URL, {
                     clerkId: user.id,
                     name: user.fullName,
                     email: user.primaryEmailAddress.emailAddress,

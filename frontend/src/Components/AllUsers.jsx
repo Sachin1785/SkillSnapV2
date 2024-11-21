@@ -9,7 +9,7 @@ function AllUsers() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch('http://localhost:5000/api/users')
+    fetch(import.meta.env.VITE_API_URL)
       .then(response => response.json())  
       .then(data => {
         // Filter out the default user

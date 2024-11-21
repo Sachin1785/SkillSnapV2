@@ -11,7 +11,7 @@ const UserProfile = (props) => {
 
   useEffect(() => {
     // Fetch user by ID (id from URL params)
-    fetch(`http://localhost:5000/api/users/${id}`) 
+    fetch(`${import.meta.env.VITE_API_URL}/${id}`) 
       .then(response => response.json())
       .then(data => {
         setUser(data);
