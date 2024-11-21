@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useUser } from '@clerk/clerk-react';
 import { BackgroundBeamsWithCollision } from './ui/background-beams-with-collision';
@@ -18,6 +18,11 @@ function EditProfile() {
         github: '',
     });
 
+    const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+    const [saveStatus, setSaveStatus] = useState('');
+
+    const initialProfileData = useRef({});
+
     useEffect(() => {
         if (user) {
             console.log()
@@ -25,12 +30,21 @@ function EditProfile() {
                 .get(`${import.meta.env.VITE_API_URL}/${user.id}`)
                 .then((response) => {
                     setProfileData(response.data);
+                    initialProfileData.current = response.data; // Store initial data
                 })
                 .catch((error) => {
                     console.error('Error fetching profile data:', error);
                 });
         }
     }, [user]);
+
+    useEffect(() => {
+        if (JSON.stringify(profileData) !== JSON.stringify(initialProfileData.current)) {
+            setHasUnsavedChanges(true);
+        } else {
+            setHasUnsavedChanges(false);
+        }
+    }, [profileData]);
 
     const handleChange = (e) => {
         setProfileData({
@@ -45,6 +59,13 @@ function EditProfile() {
             .put(`${import.meta.env.VITE_API_URL}/${user.id}`, { ...profileData, image: 'pfp.png' })
             .then((response) => {
                 console.log('Profile updated:', response.data);
+                setHasUnsavedChanges(false);
+                initialProfileData.current = profileData; // Update initial data
+                setSaveStatus('Changes saved successfully.');
+
+                setTimeout(() => {
+                    setSaveStatus('');
+                }, 3000);
             })
             .catch((error) => {
                 console.error('Error updating profile:', error);
@@ -67,12 +88,34 @@ function EditProfile() {
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     color: '#f9fafb'
                 }}>
-                    <h2 style={{
-                        fontSize: 'clamp(20px, 4vw, 24px)',
-                        fontWeight: 'bold',
-                        color: '#f9fafb',
-                        marginBottom: '24px',
-                    }}>Edit Profile</h2>
+                    <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'space-between', 
+                        marginBottom: '24px' 
+                    }}>
+                        <h2 style={{ 
+                            fontSize: 'clamp(20px, 4vw, 24px)',
+                            fontWeight: 'bold',
+                            color: '#f9fafb',
+                            marginBottom: '0' 
+                        }}>
+                            Edit Profile
+                        </h2>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            {hasUnsavedChanges && (
+                                <p style={{ color: '#FCD34D' }}>
+                                    You have unsaved changes.
+                                </p>
+                            )}
+                            {saveStatus && (
+                                <p style={{ color: '#34D399' }}>
+                                    {saveStatus}
+                                </p>
+                            )}
+                        </div>
+                    </div>
 
                     <form onSubmit={handleSubmit} style={{
                         display: 'flex',
