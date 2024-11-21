@@ -378,7 +378,18 @@ function EditProfile() {
                                 }}
                             />
                         </div>
-
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                            {hasUnsavedChanges && (
+                                <p style={{ color: '#FCD34D' }}>
+                                    You have unsaved changes.
+                                </p>
+                            )}
+                            {saveStatus && (
+                                <p style={{ color: '#34D399' }}>
+                                    {saveStatus}
+                                </p>
+                            )}
+                        </div>
                         <button
                             type="submit"
                             style={{
