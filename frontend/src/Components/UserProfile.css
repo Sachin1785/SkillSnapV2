@@ -11,6 +11,10 @@
         flex-direction: row;
         padding: 70px 50px 0px 50px;
     }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        padding: 50px 30px 0px 30px;
+    }
 }
 
 /* Sidebar */
@@ -38,11 +42,18 @@
         max-width: 100%;
         padding: 10px;
         gap: 5px;
+        margin-top: 20px;
         overflow-x: hidden; /* Prevent horizontal scroll */
     }
 
     @media (min-width: 768px) {
         margin: 0 50px 0 0;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        max-width: 250px;
+        margin: 0 30px 0 0;
+        padding: 15px;
     }
 }
 
@@ -51,11 +62,21 @@
     height: 200px;
     border-radius: 50%;
     border: 3px solid #f06c64;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    overflow: hidden;
 
     @media (max-width: 767px) {
         width: 100px;
         height: 100px;
     }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        width: 150px;
+        height: 150px;
+    }
+
+
 }
 
 .name {
@@ -67,6 +88,10 @@
         font-size: 20px;
         padding-top: 0px;
         padding-bottom: 0px;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        font-size: 30px;
     }
 }
 
@@ -81,6 +106,9 @@
         padding-bottom: 0px;
     }
 
+    @media (min-width: 768px) and (max-width: 1024px) {
+        font-size: 16px;
+    }
 }
 
 /* Main Content */
@@ -160,6 +188,10 @@
         height: 100px;
         flex-shrink: 0; /* Prevent image from shrinking */
     }
+
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    overflow: hidden;
 }
 
 .profile-details-section {
@@ -196,6 +228,8 @@
 
     @media (max-width: 767px) {
         margin-top: 12px;
+        width: 100%;
+        justify-content: center;
     }
 }
 
