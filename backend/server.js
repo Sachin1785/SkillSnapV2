@@ -95,7 +95,23 @@ app.get('/api/users/:id/export-pdf', async (req, res) => {
 
     await resume.generateResumePDF(user);
     const filePath = path.join(__dirname, 'temp-storage', `${user.id}_resume.pdf`);
-    res.download(filePath);
+    
+    // Set headers to prompt download
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${user.name}_Resume.pdf"`);
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.on('end', () => {
+      fs.unlink(filePath, (unlinkErr) => {
+        if (unlinkErr) {
+          console.error('Error deleting file:', unlinkErr);
+        } else {
+          console.log('Temp file deleted:', filePath);
+        }
+      });
+    });
+
+    fileStream.pipe(res);
   } catch (error) {
     console.error('PDF generation error:', error);
     res.status(500).json({ error: 'Failed to generate PDF' });
