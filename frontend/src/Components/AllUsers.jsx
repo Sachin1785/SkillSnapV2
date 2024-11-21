@@ -40,7 +40,7 @@ function AllUsers() {
             <div className="text-white">Loading...</div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-center items-center mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-center mx-auto max-w-7xl">
             {users.map((user) => (
               <Link key={user.id} to={`/user/${user.id}`}>
                 <CardContainer className="w-full">
