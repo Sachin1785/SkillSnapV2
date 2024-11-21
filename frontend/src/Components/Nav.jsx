@@ -81,10 +81,10 @@ function Nav() {
     return (
         <div className="flex flex-col md:flex-row justify-between items-center sticky mt-[10px] z-50 bg-gray-800 bg-opacity-60 backdrop-blur-md border border-gray-700 p-4 shadow-lg w-full">
             {/* Left: Logo, Mobile Search, and Mobile Menu Button */}
-            <div className="w-full md:w-auto flex justify-between items-center gap-4">
+            <div className="w-full md:w-auto flex justify-between items-center gap-4 ">
                 <Link to="/" className="logo flex-shrink-0">
-                    <img src={logo} alt="logo" className="hidden md:block h-12" />
-                    <img src={logoPhone} alt="logo" className="block md:hidden h-8" />
+                    <img src={logo} alt="logo" className="hidden md:block h-12 rounded-md" />
+                    <img src={logoPhone} alt="logo" className="block md:hidden h-8 rounded-md	" />
                 </Link>
                 
                 {/* Mobile Search Bar */}
@@ -166,14 +166,14 @@ function Nav() {
                                 Home
                             </Link>
                         </li>
-                        <li className="w-full text-center">
+                        {/* <li className="w-full text-center">
                             <Link to="/user/default" className="text-white hover:text-blue-500 block py-1" onClick={() => setIsMobileMenuOpen(false)}>
                                 User Profile Sample
                             </Link>
-                        </li>
+                        </li> */}
                         <li className="w-full text-center">
                             <Link to="/allUsers" className="text-white hover:text-blue-500 block py-1" onClick={() => setIsMobileMenuOpen(false)}>
-                                See All Users
+                                Explore Users
                             </Link>
                         </li>
                     </ul>
@@ -204,8 +204,8 @@ function Nav() {
                 <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
                     <ul className="nav-links flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-lg">
                         <li><Link to="/" className="text-white hover:text-blue-500 block">Home</Link></li>
-                        <li><Link to="/user/default" className="text-white hover:text-blue-500 block">User Profile Sample</Link></li>
-                        <li><Link to="/allUsers" className="text-white hover:text-blue-500 block">See All Users</Link></li>
+                        {/* <li><Link to="/user/default" className="text-white hover:text-blue-500 block">User Profile Sample</Link></li> */}
+                        <li><Link to="/allUsers" className="text-white hover:text-blue-500 block">Explore Users</Link></li>
                     </ul>
                     
                     {/* Desktop Search Bar */}
