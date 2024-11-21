@@ -68,9 +68,37 @@ const UserProfile = (props) => {
               {userImage && <img src={userImage} alt="Profile Picture" />}
             </div>
             <div className="profile-details-section">
-              <h2 className="name">{user.name}</h2>
-              <p className="designation">{user.designation}</p>
-              <p className="accounts" style={{ fontSize: "clamp(12px, 4vw, 18px)" }}>{user.email}</p>
+              <h2 className="name" style={{ 
+                maxWidth: '100%',
+                wordBreak: 'break-word'
+              }}>{user.name}</h2>
+              <hr style={{
+                border: 'none',
+                height: '1px',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                width: '100%'
+              }} />
+              <p className="designation" style={{ 
+                maxWidth: '100%',
+                wordBreak: 'break-word'
+              }}>{user.designation}</p>
+              <hr style={{
+                border: 'none',
+                height: '1px',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                width: '100%'
+              }} />
+              <p className="accounts" style={{ 
+                fontSize: "clamp(12px, 4vw, 18px)",
+                maxWidth: '100%',
+                wordBreak: 'break-word'
+              }}>{user.email}</p>
+              <hr style={{
+                border: 'none',
+                height: '1px',
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                width: '100%'
+              }} />
               
               {/* Social Media Links */}
               <div className="social-media-links">

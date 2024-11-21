@@ -27,16 +27,18 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    /* backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); */
     transform: translateZ(0);
     will-change: transform;
+    overflow: hidden; /* Add overflow control */
 
     @media (max-width: 767px) {
         flex-direction: row;
         max-width: 100%;
         padding: 10px;
-        gap: 15px;
+        gap: 5px;
+        overflow-x: hidden; /* Prevent horizontal scroll */
     }
 
     @media (min-width: 768px) {
@@ -57,21 +59,28 @@
 }
 
 .name {
-    margin: 0;
+    margin: 5px 0;
     font-size: 40px;
+    word-wrap: break-word;
 
     @media (max-width: 767px) {
-        font-size: 24px;
+        font-size: 20px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
 }
 
 .designation, .accounts {
-    margin: 0;
+    margin: 5px 0;
     font-size: 20px;
+    word-wrap: break-word;
 
     @media (max-width: 767px) {
-        font-size: 16px;
+        font-size: 14px;
+        padding-top: 0px;
+        padding-bottom: 0px;
     }
+
 }
 
 /* Main Content */
@@ -139,27 +148,44 @@
     align-items: center;
     width: 250px;
     height: 250px;
+    min-width: 100px;  /* Add minimum width */
+    min-height: 100px; /* Add minimum height */
     border-radius: 50%;
     border: 3px solid #f06c64;
     object-fit: cover;
+    aspect-ratio: 1/1;  /* Ensure perfect circle */
 
     @media (max-width: 767px) {
         width: 100px;
         height: 100px;
+        flex-shrink: 0; /* Prevent image from shrinking */
     }
 }
-
 
 .profile-details-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;  /* Add aggressive word break */
 
     @media (max-width: 767px) {
         align-items: flex-start;
         gap: 8px;
+        min-width: 0; /* Allow content to shrink */
     }
+}
+
+.name, .designation, .accounts {
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    margin: 5px 0;
 }
 
 .social-media-links {
@@ -171,4 +197,12 @@
     @media (max-width: 767px) {
         margin-top: 12px;
     }
+}
+
+/* Remove or comment out the .text-ellipsis class as it's no longer needed */
+.text-ellipsis {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
