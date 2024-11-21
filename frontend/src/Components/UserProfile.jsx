@@ -88,6 +88,34 @@ const UserProfile = (props) => {
           <div className="sidebar">
             <div className="profile-image-section">
               {userImage && <img src={userImage} alt="Profile Picture" />}
+              <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <button
+                  onClick={downloadPDF}
+                  className="download-pdf-btn"
+                  style={{
+                    backgroundColor: '#083644',
+                    color: 'white',
+                    padding: '5px 10px',
+                    border: '2px solid #f06c64',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    marginTop: '20px',
+                    marginBottom: '10px',
+                    fontSize: '14px',
+                    transition: 'all 0.3s'
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = '#f06c64';
+                    e.target.style.borderColor = '#083644';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = '#083644';
+                    e.target.style.borderColor = '#f06c64';
+                  }}
+                >
+                  Export as PDF
+                </button>
+              </div>
             </div>
             <div className="profile-details-section">
               <h2 className="name" style={{ 
@@ -122,28 +150,6 @@ const UserProfile = (props) => {
                 width: '100%'
               }} />
               
-              <button
-                onClick={downloadPDF}
-                className="download-pdf-btn"
-                style={{
-                  backgroundColor: '#4CAF50',
-                  color: 'white',
-                  padding: '10px 20px',
-                  border: 'none',
-                  borderRadius: '5px',
-                  cursor: 'pointer',
-                  marginTop: '10px',
-                  marginBottom: '10px',
-                  width: '100%',
-                  fontSize: '16px',
-                  transition: 'background-color 0.3s'
-                }}
-                onMouseOver={(e) => e.target.style.backgroundColor = '#45a049'}
-                onMouseOut={(e) => e.target.style.backgroundColor = '#4CAF50'}
-              >
-                Export as PDF
-              </button>
-
               {/* Social Media Links */}
               <div className="social-media-links">
                 {user.instagram && (
