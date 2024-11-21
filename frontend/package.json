@@ -13,7 +13,7 @@
     "@clerk/clerk-react": "^5.13.1",
     "@clerk/clerk-sdk-node": "^5.0.54",
     "@radix-ui/react-hover-card": "^1.1.2",
-    "axios": "^1.7.7",
+    "axios": "^0.21.1",
     "body-parser": "^1.20.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

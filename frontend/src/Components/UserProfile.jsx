@@ -49,6 +49,27 @@ const UserProfile = (props) => {
       });
 }, [id]);
 
+  const downloadPDF = async () => {
+    try {
+      // Remove the extra 'users' from the path
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/${id}/export-pdf`);
+      if (!response.ok) throw new Error('PDF generation failed');
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `${user.name}_Resume.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+      alert('Failed to download PDF');
+    }
+  };
 
   const openTab = (tabName) => {
     setActiveTab(tabName);
@@ -101,6 +122,28 @@ const UserProfile = (props) => {
                 width: '100%'
               }} />
               
+              <button
+                onClick={downloadPDF}
+                className="download-pdf-btn"
+                style={{
+                  backgroundColor: '#4CAF50',
+                  color: 'white',
+                  padding: '10px 20px',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  marginTop: '10px',
+                  marginBottom: '10px',
+                  width: '100%',
+                  fontSize: '16px',
+                  transition: 'background-color 0.3s'
+                }}
+                onMouseOver={(e) => e.target.style.backgroundColor = '#45a049'}
+                onMouseOut={(e) => e.target.style.backgroundColor = '#4CAF50'}
+              >
+                Export as PDF
+              </button>
+
               {/* Social Media Links */}
               <div className="social-media-links">
                 {user.instagram && (

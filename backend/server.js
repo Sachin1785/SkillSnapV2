@@ -3,6 +3,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./models/User');
 require('dotenv').config();
+const resume = require('./resume');
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -70,6 +73,32 @@ app.get('/api/users/:id', async (req, res) => {
   } catch (err) {
     console.error('Failed to fetch user:', err);
     res.status(500).json({ error: 'Failed to fetch user' });
+  }
+});
+
+// Update PDF export route to use UUID
+app.get('/api/users/:id/export-pdf', async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Try all possible ID types
+    const user = await User.findOne({
+      $or: [
+        { id: id },
+        { clerkId: id },
+        { _id: mongoose.Types.ObjectId.isValid(id) ? id : null }
+      ]
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    await resume.generateResumePDF(user);
+    const filePath = path.join(__dirname, 'temp-storage', `${user.id}_resume.pdf`);
+    res.download(filePath);
+  } catch (error) {
+    console.error('PDF generation error:', error);
+    res.status(500).json({ error: 'Failed to generate PDF' });
   }
 });
 
