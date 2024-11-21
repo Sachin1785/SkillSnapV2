@@ -40,44 +40,63 @@ const generateResumePDF = (user) => {
       doc.moveDown();
 
       // About Section
+      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+      doc.moveDown();
       doc.fontSize(14).text('About', { underline: true });
       doc.fontSize(12).text(user.about);
       doc.moveDown();
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
       doc.moveDown();
 
       // Education Section
+      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+      doc.moveDown();
       doc.fontSize(14).text('Education', { underline: true });
       user.education.split(',').forEach(edu => {
         doc.fontSize(12).text(edu.trim());
       });
       doc.moveDown();
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
       doc.moveDown();
 
       // Skills Section
+      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+      doc.moveDown();
       doc.fontSize(14).text('Skills', { underline: true });
       user.skills.split(',').forEach(skill => {
         doc.fontSize(12).text(skill.trim());
       });
       doc.moveDown();
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
       doc.moveDown();
 
       // Projects Section
+      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+      doc.moveDown();
       doc.fontSize(14).text('Projects', { underline: true });
       user.projects.split(',').forEach(project => {
         doc.fontSize(12).text(project.trim());
       });
       doc.moveDown();
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
       doc.moveDown();
 
-      // Social Media Section
-      doc.fontSize(14).text('Social Media', { underline: true });
-      doc.fontSize(12).text(`Instagram: ${user.instagram}`);
-      doc.fontSize(12).text(`LinkedIn: ${user.linkedin}`);
-      doc.fontSize(12).text(`GitHub: ${user.github}`);
+      // Check if at least one social media field is present
+      if (user.instagram || user.linkedin || user.github) {
+        doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+        doc.moveDown();
+        doc.fontSize(14).text('Social Media', { underline: true });
+        if (user.instagram) {
+          doc.fontSize(12).text(`Instagram: ${user.instagram}`);
+        }
+        if (user.linkedin) {
+          doc.fontSize(12).text(`LinkedIn: ${user.linkedin}`);
+        }
+        if (user.github) {
+          doc.fontSize(12).text(`GitHub: ${user.github}`);
+        }
+        doc.moveDown();
+        doc.moveDown();
+      }
+
+      // Add horizontal line at the end
+      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
 
       doc.end();
 
