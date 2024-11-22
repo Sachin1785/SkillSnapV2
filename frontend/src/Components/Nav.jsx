@@ -222,7 +222,7 @@ function Nav() {
                                 <path d="M10 2a8 8 0 105.293 14.707l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z" />
                             </svg>
                         </button>
-                        {Array.isArray(searchResults) && searchResults.length > 0 && (
+                        {Array.isArray(searchResults) && searchResults.length > 0 &&   (
                             <ul
                                 className="absolute bg-white border border-gray-300 mt-2 w-full rounded-lg shadow-lg z-50"
                                 onClick={(e) => e.stopPropagation()}
