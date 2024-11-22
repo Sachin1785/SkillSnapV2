@@ -40,42 +40,50 @@ const generateResumePDF = (user) => {
       doc.moveDown();
 
       // About Section
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
-      doc.moveDown();
-      doc.fontSize(14).text('About', { underline: true });
-      doc.fontSize(12).text(user.about);
-      doc.moveDown();
-      doc.moveDown();
+      if (user.about) {
+        doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+        doc.moveDown();
+        doc.fontSize(14).text('About', { underline: true });
+        doc.fontSize(12).text(user.about);
+        doc.moveDown();
+        doc.moveDown();
+      }
 
       // Education Section
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
-      doc.moveDown();
-      doc.fontSize(14).text('Education', { underline: true });
-      user.education.split(',').forEach(edu => {
-        doc.fontSize(12).text(edu.trim());
-      });
-      doc.moveDown();
-      doc.moveDown();
+      if (user.education) {
+        doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+        doc.moveDown();
+        doc.fontSize(14).text('Education', { underline: true });
+        user.education.split(',').forEach(edu => {
+          doc.fontSize(12).text(edu.trim());
+        });
+        doc.moveDown();
+        doc.moveDown();
+      }
 
       // Skills Section
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
-      doc.moveDown();
-      doc.fontSize(14).text('Skills', { underline: true });
-      user.skills.split(',').forEach(skill => {
-        doc.fontSize(12).text(skill.trim());
-      });
-      doc.moveDown();
-      doc.moveDown();
+      if (user.skills) {
+        doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+        doc.moveDown();
+        doc.fontSize(14).text('Skills', { underline: true });
+        user.skills.split(',').forEach(skill => {
+          doc.fontSize(12).text(skill.trim());
+        });
+        doc.moveDown();
+        doc.moveDown();
+      }
 
       // Projects Section
-      doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
-      doc.moveDown();
-      doc.fontSize(14).text('Projects', { underline: true });
-      user.projects.split(',').forEach(project => {
-        doc.fontSize(12).text(project.trim());
-      });
-      doc.moveDown();
-      doc.moveDown();
+      if (user.projects) {
+        doc.moveTo(doc.page.margins.left, doc.y).lineTo(doc.page.width - doc.page.margins.right, doc.y).stroke();
+        doc.moveDown();
+        doc.fontSize(14).text('Projects', { underline: true });
+        user.projects.split(',').forEach(project => {
+          doc.fontSize(12).text(project.trim());
+        });
+        doc.moveDown();
+        doc.moveDown();
+      }
 
       // Check if at least one social media field is present
       if (user.instagram || user.linkedin || user.github) {
