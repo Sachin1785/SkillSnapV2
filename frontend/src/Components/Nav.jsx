@@ -65,10 +65,10 @@ function Nav() {
                     email: user.primaryEmailAddress.emailAddress,
                 })
                 .then((response) => {
-                    console.log('User profile checked/created:', response.data);
+                    // console.log('User profile checked/created:', response.data);
                 })
                 .catch((error) => {
-                    console.error('Error creating user profile:', error);
+                    // console.error('Error creating user profile:', error);
                 });
         }
     }, [user]);
@@ -254,7 +254,7 @@ function Nav() {
                     <Link to="/edit-profile">
                         <button
                             className="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded whitespace-nowrap"
-                            onClick={() => console.log('User Clerk ID:', user.id)}
+                            // onClick={() => console.log('User Clerk ID:', user.id)}
                         >
                             Edit Profile
                         </button>

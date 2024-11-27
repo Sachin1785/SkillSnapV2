@@ -58,7 +58,7 @@ function EditProfile() {
         axios
             .put(`${import.meta.env.VITE_API_URL}/${user.id}`, { ...profileData, image: 'pfp.png' })
             .then((response) => {
-                console.log('Profile updated:', response.data);
+                // console.log('Profile updated:', response.data);
                 setHasUnsavedChanges(false);
                 initialProfileData.current = profileData; // Update initial data
                 setSaveStatus('Changes saved successfully.');
