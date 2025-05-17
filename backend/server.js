@@ -10,7 +10,14 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// Configure CORS with more specific options for production
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://skill-snap-v2.vercel.app', 'https://skillsnap.vercel.app', 'https://skill-snap.vercel.app'] 
+    : 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 
 // MongoDB Atlas connection
@@ -171,5 +178,6 @@ app.put('/api/users/:id', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`MongoDB connection: ${process.env.NODE_ENV === 'production' ? 'Using production database' : 'Using development database'}`);
 });
