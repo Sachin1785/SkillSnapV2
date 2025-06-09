@@ -11,13 +11,27 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Configure CORS with more specific options for production
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://skill-snap-v2.vercel.app',
+  'https://skillsnap.vercel.app',
+  'https://skill-snap.vercel.app'
+];
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://skill-snap-v2.vercel.app', 'https://skillsnap.vercel.app', 'https://skill-snap.vercel.app'] 
-    : 'http://localhost:5173',
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl)
+    if (!origin || allowedOrigins.includes(origin.trim())) {
+      callback(null, true);
+    } else {
+      console.error(`Blocked by CORS: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+
 app.use(express.json());
 
 // MongoDB Atlas connection
