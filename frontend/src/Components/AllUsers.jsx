@@ -12,26 +12,17 @@ function AllUsers() {
     fetch(import.meta.env.VITE_API_URL)
       .then((response) => response.json())
       .then((data) => {
-        // Filter out the default user
-        const filteredUsers = data.filter((user) => user.id !== "default");
-        // Handle both local and external images
-        const usersWithImages = filteredUsers.map((user) => {
-          if (user.image.startsWith("http")) {
-            // For external URLs, use them directly
-            return Promise.resolve({ ...user });
-          } else {
-            // For local assets, use dynamic import
-            return import(/* @vite-ignore */ `../assets/${user.image}`).then(
-              (image) => {
-                return { ...user, image: image.default };
-              }
-            );
-          }
-        });
-        Promise.all(usersWithImages).then((users) => {
-          setUsers(users);
-          setIsLoading(false);
-        });
+        // Filter out the default user and directly set the images
+        const filteredUsers = data
+          .filter((user) => user.id !== "default")
+          .map((user) => ({
+            ...user,
+            image: 
+            // add image here
+              "https://klkns551ea.ufs.sh/f/w6H1QXfdaik7Qi5IrYSxeZihA7qjYXJcdTkuGUDW4om38yrp",
+          }));
+        setUsers(filteredUsers);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching users data:", error);
