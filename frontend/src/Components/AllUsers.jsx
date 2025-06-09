@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { CardBody, CardContainer, CardItem } from './ui/3d-card';
-import { BackgroundBeamsWithCollision } from './ui/background-beams-with-collision';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { CardBody, CardContainer, CardItem } from "./ui/3d-card";
+import { BackgroundBeamsWithCollision } from "./ui/background-beams-with-collision";
 
 function AllUsers() {
   const [users, setUsers] = useState([]);
@@ -10,23 +10,31 @@ function AllUsers() {
   useEffect(() => {
     setIsLoading(true);
     fetch(import.meta.env.VITE_API_URL)
-      .then(response => response.json())  
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         // Filter out the default user
-        const filteredUsers = data.filter(user => user.id !== 'default');
-        // Dynamically import images
-        const usersWithImages = filteredUsers.map(user => {
-          return import(/* @vite-ignore */ `../assets/${user.image}`).then(image => {
-            return { ...user, image: image.default };
-          });
+        const filteredUsers = data.filter((user) => user.id !== "default");
+        // Handle both local and external images
+        const usersWithImages = filteredUsers.map((user) => {
+          if (user.image.startsWith("http")) {
+            // For external URLs, use them directly
+            return Promise.resolve({ ...user });
+          } else {
+            // For local assets, use dynamic import
+            return import(/* @vite-ignore */ `../assets/${user.image}`).then(
+              (image) => {
+                return { ...user, image: image.default };
+              }
+            );
+          }
         });
-        Promise.all(usersWithImages).then(users => {
+        Promise.all(usersWithImages).then((users) => {
           setUsers(users);
           setIsLoading(false);
         });
       })
-      .catch(error => {
-        console.error('Error fetching users data:', error);
+      .catch((error) => {
+        console.error("Error fetching users data:", error);
         setIsLoading(false);
       });
   }, []);
@@ -60,14 +68,14 @@ function AllUsers() {
                         />
                       </div>
                     </CardItem>
-                    
+
                     <CardItem
                       translateZ="100"
                       className="text-2xl font-bold text-center text-white mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-blue-300 transform transition-all duration-300 group-hover/card:scale-110 group-hover/card:from-blue-300 group-hover/card:to-purple-300"
                     >
                       {user.name}
                     </CardItem>
-                    
+
                     <CardItem
                       as="p"
                       translateZ="80"
@@ -76,10 +84,7 @@ function AllUsers() {
                       {user.designation}
                     </CardItem>
 
-                    <CardItem
-                      translateZ="100"
-                      className="mt-4 w-full"
-                    >
+                    <CardItem translateZ="100" className="mt-4 w-full">
                       <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-purple-600 hover:to-blue-600 text-white py-2 px-4 rounded-full transition-all duration-300 text-sm font-medium shadow-lg hover:shadow-purple-500/25 transform group-hover/card:scale-105 hover:scale-[1.02] active:scale-[0.98]">
                         Unlock My World
                       </button>
