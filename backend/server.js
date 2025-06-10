@@ -7,7 +7,31 @@ const resume = require('./resume');
 const path = require('path');
 const fs = require('fs');
 
+// Add HTTP and Socket.IO dependencies
+const http = require('http');
+const { Server } = require('socket.io');
+
 const app = express();
+
+// Create HTTP server from express app
+const server = http.createServer(app);
+
+// Configure Socket.IO with allowed CORS origins
+const io = new Server(server, {
+  cors: {
+    origin: [
+      'http://localhost:5173',
+      'https://skill-snap-v2.vercel.app'
+    ],
+    methods: ["GET", "POST"]
+  }
+});
+
+// Log socket connections
+io.on('connection', (socket) => {
+  console.log(`A user connected: ${socket.id}`);
+});
+
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
@@ -186,6 +210,7 @@ app.put('/api/users/:id', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+// Start the server using the HTTP server with Socket.IO
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
