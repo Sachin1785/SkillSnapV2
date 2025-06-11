@@ -7,30 +7,49 @@ const resume = require('./resume');
 const path = require('path');
 const fs = require('fs');
 
+// Add HTTP and Socket.IO dependencies
+const http = require('http');
+const { Server } = require('socket.io');
+
 const app = express();
+
+// Create HTTP server from express app
+const server = http.createServer(app);
+
+// Configure Socket.IO with allowed CORS origins
+const io = new Server(server, {
+  cors: {
+    origin: [
+      'http://localhost:5173',
+      'https://skill-snap-v2.vercel.app'
+    ],
+    methods: ["GET", "POST"]
+  }
+});
+
+// Log socket connections
+io.on('connection', (socket) => {
+  console.log(`A user connected: ${socket.id}`);
+});
+
 const PORT = process.env.PORT || 5000;
 
-// Configure CORS with more specific options for production
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://skill-snap-v2.vercel.app',
-  'https://skillsnap.vercel.app',
-  'https://skill-snap.vercel.app'
+  'https://skill-snap-v2.vercel.app'
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl)
     if (!origin || allowedOrigins.includes(origin.trim())) {
       callback(null, true);
     } else {
-      console.error(`Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  credentials: true, 
 }));
+
 
 app.use(express.json());
 
@@ -191,7 +210,7 @@ app.put('/api/users/:id', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${PORT}`);
-  console.log(`MongoDB connection: ${process.env.NODE_ENV === 'production' ? 'Using production database' : 'Using development database'}`);
+// Start the server using the HTTP server with Socket.IO
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
